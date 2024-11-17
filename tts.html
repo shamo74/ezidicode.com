@@ -89,6 +89,12 @@
      <Center />    
           
     
+    <iframe src="tts-demo.html" width="300" height="800" style="border: none;">
+    </iframe>
+
+
+         
+            
       
    </div>
    <!-- copyright section end -->
@@ -108,117 +114,3 @@
    
 
      </html>
-<Br/></div>
-    <style/>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        textarea {
-            width: 80%;
-            max-width: 600px;
-            height: 100px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            font-size: 16px;
-            resize: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #downloadButton {
-            background-color: #28a745;
-        }
-
-        #downloadButton:hover {
-            background-color: #1c7c31;
-        }
-
-        .buttons {
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>قارئ النصوص العربية</h1>
-    <textarea id="textInput">العقلُ زِينةُ الانسان.</textarea>
-    <div class="buttons">
-        <button id="readButton">قراءة النص</button>
-        <button id="downloadButton">تنزيل MP3</button>
-    </div>
-
-    <script>
-        // النص الافتراضي
-        const defaultText = "العقلُ زِينةُ الانسان.";
-        document.getElementById('textInput').value = defaultText;
-
-        // تشغيل النص
-        document.getElementById('readButton').addEventListener('click', async () => {
-            const text = document.getElementById('textInput').value;
-            if (!text.trim()) {
-                alert("يرجى إدخال نص!");
-                return;
-            }
-            const apiURL = `https://ws.voxygen.fr/ttsdemo/api/speak?text=${encodeURIComponent(text)}&lang=ar&voice=Karima_NTTS`;
-
-            // تشغيل الصوت
-            const audio = new Audio(apiURL);
-            audio.play();
-        });
-
-        // تنزيل الملف الصوتي
-        document.getElementById('downloadButton').addEventListener('click', async () => {
-            const text = document.getElementById('textInput').value;
-            if (!text.trim()) {
-                alert("يرجى إدخال نص!");
-                return;
-            }
-            const apiURL = `https://ws.voxygen.fr/ttsdemo/api/speak?text=${encodeURIComponent(text)}&lang=ar&voice=Karima_NTTS`;
-
-            // جلب الملف الصوتي
-            const response = await fetch(apiURL);
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-
-            // إنشاء رابط التنزيل
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'audio.mp3';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            // تحرير الموارد
-            URL.revokeObjectURL(url);
-        });
-    </script>
-</body>
-</html>
-
-
-     
