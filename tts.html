@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <title>ezidichat</title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- owl carousel style -->
+   <link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.carousel.min.css" />
+   <!-- bootstrap css -->
+   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+   <!-- style css -->
+   <link rel="stylesheet" type="text/css" href="css/style.css">
+   <!-- Responsive-->
+   <link rel="stylesheet" href="css/responsive.css">
+   <!-- fevicon -->
+   <link rel="icon" href="images/fevicon.png" type="image/gif" />
+   <!-- Scrollbar Custom CSS -->
+   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+   <!-- Tweaks for older IEs-->
+   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+   <!-- owl stylesheets -->
+   <link rel="stylesheet" href="css/owl.carousel.min.css">
+   <link rel="stylesheet" href="css/owl.theme.default.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+      media="screen">
+</head>
+
+<body>
+   <!--header section start -->
+   <div class="header_section header_bg">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item">
+                  <a class="nav-link" href="index.html">Home</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="about.html">About</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="software.html">Our Software</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="services.html">Services</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="contact.html">Contact Us</a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+   </div>
+   <!--header section end -->
+   <!--costume header section start -->
+   <div class="costume_header">
+      <div class="container">
+         <div class="menu_main">
+            <ul>
+               <li class="active"><a href="index.html">Home</a></li>
+               <li><a href="about.html">About</a></li>
+               <li><a href="software.html">Our Software</a></li>
+               <li><a href="services.html">Services</a></li>
+               <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+         </div>
+      
+            </ul>
+         </div>
+      </div>
+   </div>
+   <!--costume header section end -->
+   <!--services section start -->
+   
+     <Center />    
+          
+    
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قارئ النصوص العربية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 80%;
+            max-width: 600px;
+            height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            resize: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #downloadButton {
+            background-color: #28a745;
+        }
+
+        #downloadButton:hover {
+            background-color: #1c7c31;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>قارئ النصوص العربية</h1>
+    <textarea id="textInput">العقلُ زِينةُ الانسان.</textarea>
+    <div class="buttons">
+        <button id="readButton">قراءة النص</button>
+        <button id="downloadButton">تنزيل MP3</button>
+    </div>
+
+    <script>
+        // النص الافتراضي
+        const defaultText = "العقلُ زِينةُ الانسان.";
+        document.getElementById('textInput').value = defaultText;
+
+        // تشغيل النص
+        document.getElementById('readButton').addEventListener('click', async () => {
+            const text = document.getElementById('textInput').value;
+            if (!text.trim()) {
+                alert("يرجى إدخال نص!");
+                return;
+            }
+            const apiURL = `https://ws.voxygen.fr/ttsdemo/api/speak?text=${encodeURIComponent(text)}&lang=ar&voice=Karima_NTTS`;
+
+            // تشغيل الصوت
+            const audio = new Audio(apiURL);
+            audio.play();
+        });
+
+        // تنزيل الملف الصوتي
+        document.getElementById('downloadButton').addEventListener('click', async () => {
+            const text = document.getElementById('textInput').value;
+            if (!text.trim()) {
+                alert("يرجى إدخال نص!");
+                return;
+            }
+            const apiURL = `https://ws.voxygen.fr/ttsdemo/api/speak?text=${encodeURIComponent(text)}&lang=ar&voice=Karima_NTTS`;
+
+            // جلب الملف الصوتي
+            const response = await fetch(apiURL);
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+
+            // إنشاء رابط التنزيل
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'audio.mp3';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // تحرير الموارد
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
+
+
+         
+            
+      
+   </div>
+   <!-- copyright section end -->
+   <!-- Javascript files-->
+   <script src="js/jquery.min.js"></script>
+   <script src="js/popper.min.js"></script>
+   <script src="js/bootstrap.bundle.min.js"></script>
+   <script src="js/jquery-3.0.0.min.js"></script>
+   <script src="js/plugin.js"></script>
+   <!-- sidebar -->
+   <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+   <script src="js/custom.js"></script>
+   <!-- javascript -->
+   <script src="js/owl.carousel.js"></script>
+   <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+   <script type="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2//2.0.0-beta.2.4/owl.carousel.min.js"></script>
+   
+
+     </html>
