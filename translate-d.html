@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Download Icon</title>
+    <style>
+        /* إعدادات الصفحة */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #007BFF, #00D4FF);
+            color: #fff;
+        }
+
+        /* الحاوية */
+        .icon-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .icon-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* أيقونة التحميل */
+        .icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 0 auto 15px;
+        }
+
+        .icon::after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border: solid 5px #007BFF;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+            position: absolute;
+            bottom: 25px;
+        }
+
+        .icon:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        /* النصوص */
+        .text a {
+            font-size: 18px;
+            text-decoration: none;
+            color: #fff;
+            display: inline-block;
+            margin: 5px 0;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 25px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .text a:hover {
+            background: rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .text .online {
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="icon-container">
+        <div class="icon"></div>
+        <div class="text">
+            <a href="https://example.com/download" class="download" target="_blank">Download</a>
+            <a href="https://example.com/online" class="online" target="_blank">Online</a>
+        </div>
+    </div>
+    <script>
+        // إذا كنت تحتاج لأي تأثيرات إضافية، يمكن إضافتها هنا
+    </script>
+</body>
+</html>
