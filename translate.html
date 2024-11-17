@@ -9,7 +9,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
    <!-- site metas -->
-   <title>ezidicode.com</title>
+   <title>ec-timewall</title>
    <meta name="keywords" content="">
    <meta name="description" content="">
    <meta name="author" content="">
@@ -37,7 +37,7 @@
 
 <body>
    <!--header section start -->
-   <div class="header_section">
+   <div class="header_section header_bg">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
          <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -47,41 +47,95 @@
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                <li class="nav-item">
-                  <a class="nav-link" href="index.html">Welcome</a>
-               <Hr/></li>
-               <li class="nav-item">
-                  <a class="nav-link" href="services.html"> Yazidi AI Chat  </a>
+                  <a class="nav-link" href="index.html">Home</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="software.html">information</a>
+                  <a class="nav-link" href="about.html">About</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="about.html">Artificial Intelligence Services </a>
+                  <a class="nav-link" href="software.html">Our Software</a>
                </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="services.html">Services</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="contact.html">Contact Us</a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+   </div>
+   <!--header section end -->
+   <!--costume header section start -->
+   <div class="costume_header">
+      <div class="container">
+         <div class="menu_main">
+            <ul>
+               <li class="active"><a href="index.html">Home</a></li>
+               <li><a href="about.html">About</a></li>
+               <li><a href="software.html">Our Software</a></li>
+               <li><a href="services.html">Services</a></li>
+               <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+         </div>
+      
+            </ul>
+         </div>
+      </div>
+   </div>
+   <!--costume header section end -->
+   <!--services section start -->
+   
+     <Center />    
+        <Br/>
+    </div>
 <div/>
     <style>
-
-        .icon-container {
-            text-align: center;
+        /* إعدادات الصفحة */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #007BFF, #00D4FF);
+            color: #fff;
         }
 
+        /* الحاوية */
+        .icon-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .icon-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* أيقونة التحميل */
         .icon {
             width: 100px;
             height: 100px;
-            background-color: #007BFF;
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 10px;
             position: relative;
+            margin: 0 auto 15px;
         }
 
         .icon::after {
             content: '';
             width: 30px;
             height: 30px;
-            border: solid 5px white;
+            border: solid 5px #007BFF;
             border-top: none;
             border-left: none;
             transform: rotate(45deg);
@@ -89,22 +143,31 @@
             bottom: 25px;
         }
 
+        .icon:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        /* النصوص */
         .text a {
-            display: block;
-            font-size: 20px;
+            font-size: 18px;
             text-decoration: none;
-            color: #333;
+            color: #fff;
+            display: inline-block;
             margin: 5px 0;
-            transition: color 0.3s ease;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 25px;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .text a:hover {
-            color: #007BFF;
+            background: rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
         }
 
         .text .online {
             font-size: 16px;
-            color: #666;
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -117,9 +180,10 @@
         </div>
     </div>
     <script>
-        // يمكنك إضافة وظائف هنا إذا كنت بحاجة إلى تشغيل وظائف JavaScript لاحقًا
+        // إذا كنت تحتاج لأي تأثيرات إضافية، يمكن إضافتها هنا
     </script>
 
+   </div>
    <!-- copyright section end -->
    <!-- Javascript files-->
    <script src="js/jquery.min.js"></script>
@@ -134,26 +198,6 @@
    <script src="js/owl.carousel.js"></script>
    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
    <script type="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2//2.0.0-beta.2.4/owl.carousel.min.js"></script>
-   <script>
-      var $owl = $('.owl-carousel');
+   
 
-      $owl.children().each(function (index) {
-         $(this).attr('data-position', index); // NB: .attr() instead of .data()
-      });
-
-      $owl.owlCarousel({
-         center: true,
-         loop: true,
-         items: 3,
-      });
-
-      $(document).on('click', '.owl-item>div', function () {
-         // see https://owlcarousel2.github.io/OwlCarousel2/docs/api-events.html#to-owl-carousel
-         var $speed = 300;  // in ms
-         $owl.trigger('to.owl.carousel', [$(this).data('position'), $speed]);
-      });
-
-   </script>
-</body>
-
-</html>
+     </html>
