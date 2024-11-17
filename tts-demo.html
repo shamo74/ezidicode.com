@@ -7,7 +7,20 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            
+/* Font Face for TTF */
+        @font-face {
+            font-family: 'CustomArabicFont';
+            src: url('css/CustomArabicFont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Font for entire page */
+        * {
+            font-family: 'CustomArabicFont', sans-serif;
+        }
+            
             text-align: center;
             background-color: #f4f4f9;
             color: #333;
