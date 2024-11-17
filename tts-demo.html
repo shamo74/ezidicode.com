@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قارئ النصوص العربية</title>
-
     <style>
-        body {
-            
+        
 /* Font Face for TTF */
         @font-face {
             font-family: 'CustomArabicFont';
@@ -20,7 +18,8 @@
         * {
             font-family: 'CustomArabicFont', sans-serif;
         }
-            
+        body {
+            font-family: Arial, sans-serif;
             text-align: center;
             background-color: #f4f4f9;
             color: #333;
@@ -75,7 +74,7 @@
 </head>
 <body>
     <h1>قارئ النصوص العربية</h1>
-    <textarea id="textInput">مرحبًا في خدمة تحويل نص إلى كلام باللغة العربية، مؤسسة ايزيدي البرمجيات.</textarea>
+    <textarea id="textInput">العقلُ زِينةُ الانسان.</textarea>
     <div class="buttons">
         <button id="readButton">قراءة النص</button>
         <button id="downloadButton">تنزيل MP3</button>
@@ -83,7 +82,7 @@
 
     <script>
         // النص الافتراضي
-        const defaultText = "مَرْحَبًا، أنا باسيمة";
+        const defaultText = "العقلُ زِينةُ الانسان.";
         document.getElementById('textInput').value = defaultText;
 
         // تشغيل النص
