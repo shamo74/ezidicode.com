@@ -377,7 +377,7 @@ header .menu-item a:hover {
     <select id="inputLanguage" class="language">
    
     <option value="ar">العربية</option>
-          <option value="https://example.com/de">ألمانيا (قريبًا)</option>
+          <option value="https://example.com/de">Germany (coming soon)</option>
     <option value="https://example.com/eng">
 الإنجليزية (قريبًا)
 </option>
@@ -390,14 +390,14 @@ header .menu-item a:hover {
   <option value="https://example.com/es">
 أسبانيا(قريبًا)
 </option>
-  <option value="https://example.com/fr">فرنسا (قريبًا)</option>
-  <option value="https://example.com/it">إيطاليا (قريبًا)</option>
-  <option value="https://example.com/pt">البرتغال (قريبًا)</option>
-  <option value="https://example.com/ru">روسيا (قريبًا)</option>
-  <option value="https://example.com/zh">الصين (قريبًا)</option>
-  <option value="https://example.com/ja">اليابان (قريبًا)</option>
-  <option value="https://example.com/ko">كوريا (قريبًا)</option>
-  <option value="https://example.com/hi">الهند (قريبًا)</option>
+  <option value="https://example.com/fr">France (coming soon)</option>
+  <option value="https://example.com/it">Italian (coming soon)</option>
+  <option value="https://example.com/pt">Portugal (coming soon)</option>
+  <option value="https://example.com/ru">Russia (coming soon)</option>
+  <option value="https://example.com/zh">China (coming soon)</option>
+  <option value="https://example.com/ja">Japanese (coming soon)</option>
+  <option value="https://example.com/ko">Korea (coming soon)</option>
+  <option value="https://example.com/hi">Hindi (coming soon)</option>
     
     </select>
 </select>
@@ -406,11 +406,11 @@ header .menu-item a:hover {
     <!-- Service grid section -->
     
 <center/></textarea><br/>
-        <button id="read-btn" class="read-button">قراءة النص</button>
+        <button id="read-btn" class="read-button">Read the text</button>
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=gzBEi77v"></script>
 <div class="container">
     <div class="input-section">
-        <textarea id="inuk" class="input-box" placeholder="العربية"></textarea><br/>
+        <textarea id="inuk" class="input-box" placeholder="English"></textarea><br/>
     </div>
     <select id="outputLanguage" class="language"select onchange="window.location.href=this.value;">
  <option value="ar">الإيزيدية</option>
@@ -422,7 +422,7 @@ header .menu-item a:hover {
 
 <div class="input-section">
     <textarea id="braille" class="input-box" readonly  placeholder="𐺩𐺏𐺨𐺋𐺨"></textarea>
-    <button class="paste-btn" id="copyButton">نسخ النص</button><br/>
+    <button class="paste-btn" id="copyButton">Copy text</button><br/>
     </div>
 
 
@@ -503,7 +503,7 @@ header .menu-item a:hover {
                 }
 
                 if (!phraseFound) {
-                    var word = words[i].replace(/[^\u0621-\u064A\u0660-\u80669]/g, " ");
+                    var word = words[i].replace(/[^\u0f621-\u0f64A\u0f660-\u80669]/g, " ");
                     if (!wordsWritten.includes(word) && word.length > 0) {
                         wordsWritten.push(word);
                     }
@@ -634,7 +634,7 @@ header .menu-item a:hover {
             brailleTextarea.setSelectionRange(0, 99999);
             document.execCommand('copy');
             window.getSelection().removeAllRanges();
-            alert('تم نسخ النص بنجاح!');
+            alert('Text copied successfully!');
         });
 
         document.getElementById('read-btn').addEventListener('click', function() {
@@ -646,7 +646,7 @@ header .menu-item a:hover {
                     volume: 1
                 });
             } else {
-                alert("يرجى إدخال نص للقراءة.");
+                alert("Please enter text to read..");
             }
         });
 
@@ -659,7 +659,7 @@ header .menu-item a:hover {
                     volume: 1
                 });
             } else {
-                alert("يرجى إدخال نص للقراءة.");
+                alert("Please enter text to read..");
             }
         });
     });
