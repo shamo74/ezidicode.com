@@ -453,7 +453,7 @@ header .menu-item a:hover {
         const SPECIAL_RESPONSES = {};
 
         function loadTranslations(language) {
-            var filePath = language === "ar" ? 'https://raw.githubusercontent.com/shamo74/Google-Translate/refs/heads/main/translations.json' : '';
+            var filePath = language === "ar" ? 'https://raw.githubusercontent.com/shamo74/ezidicode-translation-json/refs/heads/main/json/english-t-ezidish.json' : '';
             fetch(filePath)
                 .then(response => response.json())
                 .then(data => {
