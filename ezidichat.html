@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat AI | EZIDICODE</title>
+    <style>
+        @font-face {
+            font-family: 'CustomArabicFont';
+            src: url('CustomArabicFont.ttf') format('truetype');
+        }
+
+        * {
+            font-family: 'CustomArabicFont', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(120deg, #00c6ff, #0072ff);
+            color: #333;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0072ff;
+        }
+
+        .language-select select {
+            font-size: 14px;
+            padding: 5px;
+            border-radius: 20px;
+            border: none;
+            background: #0072ff;
+            color: white;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background: #001f3f;
+            color: white;
+            padding: 20px;
+            transition: left 0.1s ease-in-out;
+            z-index: 1000;
+            box-shadow: 4px 0 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar-menu.active {
+            left: 0;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: #0072ff;
+        }
+
+        .close-btn {
+            font-size: 18px;
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .grid-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 100px 20px 20px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid-item {
+            background: white;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .grid-item img {
+            max-width: 80px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.2);
+        }
+
+        .grid-item span {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top bar -->
+    <header class="top-bar">
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="logo">ezidicode.com</div>
+        <div class="language-select">
+            <select id="language-select" onchange="changeLanguage()">
+                <option value="index.html">English</option>
+                <option value="index-ar.html">العربية</option>
+                <option value="index-ku.html">كوردى</option>
+                <option value="index-yez.html">𐺩𐺏𐺨𐺋𐺨</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- Sidebar menu -->
+    <div class="sidebar-menu" id="sidebar-menu">
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
+        <a href="index.html">Home</a>
+        <a href="Services.html">Services</a>
+        <a href="information.html">Information</a>
+        <a href="Contactus.html">Contact Us</a>
+    </div>
+
+    <!-- Service grid section -->
+    <br/><br/><br/>
+
+<section class="msger">
+  <header class="msger-header">
+    <div class="msger-header-title">
+      <i class="fas fa-comment-alt"></i> EZIDICHAT ° ²⁰²⁴
+    </div>
+    <div class="msger-header-options">
+      <span><i class="fas fa-cog"></i></span>
+    </div>
+  </header>
+
+  <main class="msger-chat">
+    <div class="msg left-msg">
+      <div
+       class="msg-img"
+       style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"
+      ></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">خديدا</div>
+          <div class="msg-info-time">12:45</div>
+        </div>
+
+        <div class="msg-text">
+        😄 طي بخير هاطيا فر تشطي طا بفي بنفيس او اميي جوابا طا دن
+        </div>
+      </div>
+    </div>
+
+    <div class="msg right-msg">
+      <div
+       class="msg-img"
+       style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"
+      ></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">شيرين</div>
+          <div class="msg-info-time">12:46</div>
+        </div>
+
+        <div class="msg-text">
+          نافي من شيرين از ل خدما وديما كرمكن !
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <form class="msger-inputarea"> <center/>مرحبًا! بك في الدردشة الإيزيدية</center>
+    <input type="text" class="msger-input" placeholder="ب زماني ما بنفيس">
+    <button type="submit" class="msger-send-btn">بشينا</button>
+  </form>
+</section>
+
+<script>
+const msgerForm = document.querySelector(".msger-inputarea");
+const msgerInput = document.querySelector(".msger-input");
+const msgerChat = document.querySelector(".msger-chat");
+
+let BOT_MSGS = [];
+let SPECIAL_RESPONSES = {};
+
+fetch('https://raw.githubusercontent.com/shamo74/EZIDIGPT/refs/heads/main/ezidigpt.json')
+  .then(response => response.json())
+  .then(data => {
+    BOT_MSGS = data.BOT_MSGS;  // تأكد من أن الـ JSON يحتوي على هذه الخصائص
+    SPECIAL_RESPONSES = data.SPECIAL_RESPONSES;
+  })
+  .catch(error => console.error('Error fetching JSON:', error));
+
+const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
+const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
+const BOT_NAME = "شيرين";
+const PERSON_NAME = "طي";
+
+msgerForm.addEventListener("submit", event => {
+  event.preventDefault();
+
+  const msgText = msgerInput.value;
+  if (!msgText) return;
+
+  appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+  msgerInput.value = "";
+
+  botResponse(msgText);
+});
+
+function appendMessage(name, img, side, text, quotedText = "") {
+  const msgHTML = `
+    <div class="msg ${side}-msg">
+      <div class="msg-img" style="background-image: url(${img})"></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">${name}</div>
+          <div class="msg-info-time">${formatDate(new Date())}</div>
+        </div>
+        ${quotedText ? `<div class="msg-quote">${quotedText}</div>` : ""}
+        <div class="msg-text">${text}</div>
+      </div>
+    </div>
+  `;
+
+  msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+  msgerChat.scrollTop += 500;
+}
+
+function botResponse(userText) {
+  for (let keyword in SPECIAL_RESPONSES) {
+    if (userText.includes(keyword)) {
+      typeMessage(BOT_NAME, BOT_IMG, "left", SPECIAL_RESPONSES[keyword]);
+      return;
+    }
+  }
+  
+  const matchingMessage = BOT_MSGS.find(msg => msg.includes(userText));
+  
+  if (matchingMessage) {
+    typeMessage(BOT_NAME, BOT_IMG, "left", matchingMessage);
+  } else {
+    const r = random(0, BOT_MSGS.length - 1);
+    const msgText = BOT_MSGS[r];
+    const delay = msgText.split(" ").length * 100;
+
+    setTimeout(() => {
+      typeMessage(BOT_NAME, BOT_IMG, "left", msgText);
+    }, delay);
+  }
+}
+
+function typeMessage(name, img, side, text) {
+  const typingMsgHTML = `
+    <div class="msg ${side}-msg typing">
+      <div class="msg-img" style="background-image: url(${img})"></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">${name}</div>
+          <div class="msg-info-time">${formatDate(new Date())}</div>
+        </div>
+        <div class="msg-text">...</div>
+      </div>
+    </div>
+  `;
+
+  msgerChat.insertAdjacentHTML("beforeend", typingMsgHTML);
+  msgerChat.scrollTop += 500;
+
+  const typingMsg = msgerChat.querySelector(".msg.typing .msg-text");
+  const typingDuration = text.length * 50; // Adjust typing speed here
+  
+  let currentText = "";
+  let charIndex = 0;
+  
+  function typeChar() {
+    currentText += text[charIndex];
+    typingMsg.innerHTML = currentText + "<span class='cursor'>|</span>";
+    charIndex++;
+    
+    if (charIndex < text.length) {
+      setTimeout(typeChar, 60); // Adjust typing speed here
+    } else {
+      typingMsg.innerHTML = currentText;
+      msgerChat.querySelector(".msg.typing").classList.remove("typing");
+    }
+  }
+  
+  setTimeout(typeChar, 50); // Start typing effect
+}
+
+// Utils
+function formatDate(date) {
+  const h = "0" + date.getHours();
+  const m = "0" + date.getMinutes();
+
+  return `${h.slice(-2)}:${m.slice(-2)}`;
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+</script>
+
+</body>
+</html>
+<style/>
+/* styles.css */
+
+/* Font Face for TTF */
+        @font-face {
+            font-family: 'CustomArabicFont';
+            src: url('CustomArabicFont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Font for entire page */
+        * {
+            font-family: 'CustomArabicFont', sans-serif;
+        }
+
+.msger {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.msger-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #4600FF;
+  color: #f1f1f1;
+  font-size: 20px;
+}
+
+.msger-header-title {
+  font-weight: bold;
+}
+
+.msger-chat {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  overflow-y: auto;
+  height: 60vh;
+  background-color: #f4f4f4;
+}
+
+.msg {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 13px;
+  font-size: 19px;
+}
+
+.left-msg {
+  flex-direction: row;
+}
+
+.right-msg {
+  flex-direction: row-reverse;
+}
+
+.msg-img {
+  width: 4px;
+  height: 40px;
+  background-color: #ddd;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0%;
+  margin: 0 10px; 
+}
+
+.msg-bubble {
+  max-width: 75%;
+  padding: 10px;
+  border-radius: 16px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.left-msg .msg-bubble {
+  background-color: #d1e7ff;
+  color: #333;
+}
+
+.right-msg .msg-bubble {
+  background-color: #c4e1b3;
+  color: #333;
+}
+
+.msg-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 11px;
+  color: #666;
+}
+
+.msg-info-name {
+  font-weight: bold;
+}
+
+.msger-inputarea {
+  display: flex;
+  padding: 1.9px;
+  background-color: #fafafa;
+  border-top: 5px solid white;
+}
+
+.msger-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+}
+
+.msger-send-btn {
+  padding: 10px 15px;
+  margin-left: 0px;
+  background-color: #4600FF;
+  color: #fff;
+  font-size: 22px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.msger-send-btn:hover {
+  background-color: #333;
+}
+
+@media (max-width: 768px) {
+  .msger {
+    width: 100%;
+  }
+
+  .msg-bubble {
+    max-width: 85%;
+  }
+
+  .msger-inputarea {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+</style>
+    
+    
+     
+    
+        
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const sidebarMenu = document.getElementById('sidebar-menu');
+            sidebarMenu.classList.toggle('active');
+        }
+
+        function changeLanguage() {
+            const language = document.getElementById('language-select').value;
+            window.location.href = language;
+        }
+    </script>
+
+</body>
+</html>
