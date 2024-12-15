@@ -3,359 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    	<meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- mobile metas -->
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <title>ezidicode | Translate</title>
-    <style>/* Font Face for TTF */
+    <title>Chat AI | EZIDICODE</title>
+    <style>
         @font-face {
             font-family: 'CustomArabicFont';
             src: url('CustomArabicFont.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
         }
 
-        /* Font for entire page */
         * {
             font-family: 'CustomArabicFont', sans-serif;
-        }
-        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color:#252525;
+            background: linear-gradient(120deg, #00c6ff, #0072ff);
+            color: #333;
+            font-size: 16px;
+            overflow-x: hidden;
         }
 
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color:#FFF9E3 ;
-            color: white;
-            padding: 2px 10px;
-            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
         .menu-icon {
             font-size: 24px;
             cursor: pointer;
-            color: black;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
-            color: black;
+            color: #0072ff;
         }
- 
-        .language-select {
+
+        .language-select select {
             font-size: 14px;
+            padding: 5px;
+            border-radius: 20px;
+            border: none;
+            background: #0072ff;
+            color: white;
+            outline: none;
             cursor: pointer;
         }
 
-        /* Sidebar menu styles */
         .sidebar-menu {
             position: fixed;
             top: 0;
-            left: -300px; /* Initially hidden */
+            left: -300px;
             width: 300px;
             height: 100%;
-            background-color: #FFF9E3;
+            background: #001f3f;
             color: white;
             padding: 20px;
-            transition: left 0.3s ease;
+            transition: left 0.1s ease-in-out;
             z-index: 1000;
+            box-shadow: 4px 0 6px rgba(0, 0, 0, 0.2);
         }
 
         .sidebar-menu.active {
-            left: 0; /* Show when active */
+            left: 0;
         }
 
         .sidebar-menu a {
             display: block;
-            color: black;
-            padding: 15px;
+            color: white;
+            padding: 10px 15px;
             text-decoration: none;
-            background-color: #F2E1A7;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
         .sidebar-menu a:hover {
-            background-color: #C6B577;
+            background: #0072ff;
         }
 
         .close-btn {
-            font-size: 20px;
-            background-color: #FF7A8A;
-            color: black;
+            font-size: 18px;
+            background-color: #ff4c4c;
+            color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 54px;
+            padding: 10px 15px;
+            border-radius: 5px;
             cursor: pointer;
             margin-bottom: 20px;
-            display: inline-block;
-            
         }
 
-        /* Balance section styles */
-        .balance-section {
-            background-color: #2C2C2C;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .balance-content h2 {
-            font-size: 10px;
-            margin: 5px 0;
-        }
-
-        .balance-content h1 {
-            font-size: 20px;
-        }
-
-        .balance-refresh span {
-            font-size: 46px;
-            cursor: pointer;
-        }
-
-        /* Service grid section */
         .grid-section {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 100px 20px 20px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .grid-item {
-            background-color: #F0E2AE;
-            color: black;
-            padding: 5px;
+            background: white;
+            color: #333;
             text-align: center;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            transition: background-color 0.9s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .grid-item:hover {
-            background-color: #CEB865;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
         }
 
         .grid-item img {
-            max-width: 60px;
-            margin-bottom: 4px;
+            max-width: 80px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
         }
-        body {
-    font-family: Arial, sans-serif;
-    background-color: #FFFCF1; /* تعديل الخلفية إلى الأسود */
-    color: white; /* تغيير لون النص إلى الأبيض لتحسين الوضوح على الخلفية السوداء */
-}
 
-```css
-/* General Styles */
+        .grid-item:hover img {
+            transform: scale(1.2);
+        }
+
+        .grid-item span {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        /* General Styles */
 body {
-    font-family: "Arial", sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #FFF9E3; /* Background color */
-    color: #333; /* Text color */
-    
-    line-height: 1.6;
-}
-
-/* Header */
-header {
-    background-color: #FFF9E3; /* Header background */
-    color: #333; /* Header text color */
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    border-bottom: 2px solid #333; /* Bottom border */
-}
-
-header .user-profile img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid #333; /* Profile image border */
-}
-
-header .menu-item a {
-    color: #333; /* Link text color */
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-header .menu-item a:hover {
-    background-color: #333; /* Hover background */
-    color: #FFF9E3; /* Hover text color */
-}
-
-/* Container */
-.container {
-    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Input Sections */
-.input-section {
-    margin-bottom: 1px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 600px;
-}
-
-.input-box {
-    width: 90%;
-    height: 100px;
-    padding: 10px;
-    font-size: 20px;
-    border: 1px solid #333; /* Input border */
-    border-radius: 16px;
-    background-color: #FFF9E3; /* Input background */
-    color: #333; /* Input text color */
-    box-shadow: 0 30px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    resize: none;
-    text-align: Normal; /* Align text to the right */
-}
-
-/* Buttons */
-.read-button,
-.paste-btn {
-    background-color: #333; /* Button background */
-    color: #FFF9E3; /* Button text color */
-    border: none;
-    border-radius: 0px;
-    padding: 4px 10px;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: 0px;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.read-button:hover,
-.paste-btn:hover {
-    background-color: #555; /* Hover background */
-    transform: scale(1.05); /* Slightly enlarge on hover */
-    
-}
-
-/* Language Selection */
+/* Language Selection Dropdown */
 .language-selection {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    
+    margin: 20px;
 }
 
 .language {
-    
-    
-    border: 1px solid #333; /* Dropdown border */
-    border-radius: 1px;
-    background-color: #FFF9E3; /* Dropdown background */
-    color: #333; /* Dropdown text color */
-    
-    transition: border-color 0.3s, background-color 0.3s;
-}
-
-.language:hover {
-    border-color: #555; /* Hover border */
-    background-color: #f7f3e8; /* Subtle hover background */
-}
-
-.swap-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
+    font-size: 16px;
     padding: 10px;
+    width: 180%;
+    max-width: 200px;
+    border: 1px solid #0072ff;
+    border-radius: 5px;
+    color: #0072ff;
+    background-color: #fff;
 }
 
-.swap-icon svg {
-    width: 30px;
-    height: 30px;
-    stroke: #333; /* Icon color */
-    transition: stroke 0.3s, transform 0.2s;
+/* Input Section */
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
-.swap-icon:hover svg {
-    stroke: #555; /* Hover icon color */
-    transform: rotate(90deg); /* Rotate on hover */
+.input-section {
+    margin: 15px 0;
 }
 
-/* Bottom Icons */
+.input-box {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #0072ff;
+    border-radius: 5px;
+    color: #333;
+    background-color: #fff;
+    resize: none;
+}
+
+.input-box[readonly] {
+    background-color: #e9f5ff;
+    cursor: not-allowed;
+}
+
+.paste-btn {
+    margin-top: 10px;
+    padding: 8px 15px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #0072ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.paste-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Read Button */
+.read-button {
+    display: block;
+    margin: 15px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #0072ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.read-button:hover {
+    background-color: #0056b3;
+}
+
+/* Bottom Icons Section */
 .bottom-icons {
     display: flex;
-    justify-content: space-around;
-    padding: 15px 20px;
-    background-color: #FFF9E3; /* Bottom bar background */
-    border-top: 2px solid #333; /* Top border */
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    justify-content: center;
+    margin: 20px 0;
 }
 
 .icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 0 10px;
+    text-align: center;
 }
 
-.icon-btn,
-.mic-btn {
-    width: 60px;
-    height: 60px;
-    border: 2px solid #333; /* Icon border */
-    border-radius: 80%;
-    background-color: #FFF9E3; /* Icon button background */
+.icon-btn {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid #0072ff;
+    border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
 }
 
-.icon-btn:hover,
-.mic-btn:hover {
-    background-color: #f7f3e8; /* Hover icon button background */
-    transform: scale(1.1); /* Enlarge on hover */
+.mic-btn {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid #0072ff;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .icon-label {
-    margin-top: 1px;
-    color: #333; /* Icon label color */
-    font-size: 14px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #0072ff;
 }
-```
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .language {
+        font-size: 14px;
+    }
+
+    .input-box {
+        font-size: 22px;
+    }
+
+    .paste-btn,
+    .read-button {
+        font-size: 14px;
+    }
+}
     </style>
 </head>
 <body>
 
     <!-- Top bar -->
     <header class="top-bar">
-        <div class="menu-icon" onclick="toggleMenu()">&#9776; </div>
-      <div class="logo">ezidicode.com</div>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="logo">ezidicode.com</div>
         <div class="language-select">
             <select id="language-select" onchange="changeLanguage()">
-                <option value="translate.html">English</option>
-                <option value="translate-arabic.html">العربية</option>
+                <option value="index.html">English</option>
+                <option value="index-ar.html">العربية</option>
                 <option value="index-ku.html">كوردى</option>
                 <option value="index-yez.html">𐺩𐺏𐺨𐺋𐺨</option>
             </select>
@@ -364,16 +313,34 @@ header .menu-item a:hover {
 
     <!-- Sidebar menu -->
     <div class="sidebar-menu" id="sidebar-menu">
-        <button class="close-btn" onclick="toggleMenu()"> ✕</button>
-   <br/>     <a href="index.html">EZIDICODE</a>
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
+        <a href="index.html">Home</a>
         <a href="Services.html">Services</a>
-        <a href="information.html">IT INFORMATION </a>
-       <a href="Contactus.html">Contact us</a>
+        <a href="information.html">Information</a>
+        <a href="Contactus.html">Contact Us</a>
+    </div>
+
+    <!-- Service grid section -->
+    <br/><br/><br/>
+
+
 
          <!-- translate -->  
     </div><br/>
 
-<div class="language-selection">
+</select>
+</div>
+
+    <!-- Service grid section -->
+    
+<center/></textarea>
+        <button id="read-btn" class="read-button">Read the text</button>
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=gzBEi77v"></script>
+<div class="container">
+    <div class="input-section">
+        <textarea id="inuk" class="input-box" placeholder="English"></textarea><br/>
+    </div>
+    <div class="language-selection">
     <select id="inputLanguage" class="language">
    
     <option value="ar">English</option>
@@ -400,24 +367,6 @@ header .menu-item a:hover {
   <option value="https://example.com/hi">Hindi (coming soon)</option>
     
     </select>
-</select>
-</div>
-
-    <!-- Service grid section -->
-    
-<center/></textarea><br/>
-        <button id="read-btn" class="read-button">Read the text</button>
-<script src="https://code.responsivevoice.org/responsivevoice.js?key=gzBEi77v"></script>
-<div class="container">
-    <div class="input-section">
-        <textarea id="inuk" class="input-box" placeholder="English"></textarea><br/>
-    </div>
-    <select id="outputLanguage" class="language"select onchange="window.location.href=this.value;">
- <option value="ar">Yezidi</option>
-
-
-  
-</select>
 </div>
 
 <div class="input-section">
@@ -654,9 +603,9 @@ header .menu-item a:hover {
             const brailleText = document.getElementById('braille').value;
             if (brailleText) {
                 responsiveVoice.speak(brailleText, "Arabic Female", {
-                    pitch: 1.0,
-                    rate: 1,
-                    volume: 1
+                    pitch: 9.0,
+                    rate: 9.0,
+                    volume: 1.0,
                 });
             } else {
                 alert("Please enter text to read..");
@@ -684,5 +633,27 @@ header .menu-item a:hover {
             window.location.href = language;
         }
     </script>
+</body>
+</html>
+
+
+
+.......
+        
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const sidebarMenu = document.getElementById('sidebar-menu');
+            sidebarMenu.classList.toggle('active');
+        }
+
+        function changeLanguage() {
+            const language = document.getElementById('language-select').value;
+            window.location.href = language;
+        }
+    </script>
+
 </body>
 </html>
