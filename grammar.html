@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yezidi dictionary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 600px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Yezidi dictionary</h1>
+    <input type="text" id="searchInput" placeholder="ابحث عن كلمة..." />
+    <button id="searchButton">search...</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function fetchDictionary() {
+      try {
+        const response = await fetch('dictionary.json');
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('خطأ في تحميل ملف JSON:', error);
+        return null;
+      }
+    }
+
+    async function searchWord() {
+      const dictionary = await fetchDictionary();
+      if (!dictionary) {
+        document.getElementById('result').innerHTML = "<p>تعذر تحميل ملف القاموس.</p>";
+        return;
+      }
+
+      const query = document.getElementById('searchInput').value.trim();
+      if (query === "") {
+        document.getElementById('result').innerHTML = "<p>الرجاء إدخال كلمة للبحث.</p>";
+        return;
+      }
+
+      const meaning = dictionary[query];
+      if (meaning) {
+        document.getElementById('result').innerHTML = `<p><strong>${query}:</strong> ${meaning}</p>`;
+      } else {
+        document.getElementById('result').innerHTML = "<p>عذرًا، لم يتم العثور على معنى لهذه الكلمة.</p>";
+      }
+    }
+
+    document.getElementById('searchButton').addEventListener('click', searchWord);
+  </script>
+</body>
+</html>
