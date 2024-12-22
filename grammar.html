@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yezidi dictionary</title>
+  <title>Yezidi Dictionary</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Arial", sans-serif;
       background-color: #f4f4f9;
       color: #333;
       display: flex;
@@ -20,47 +20,87 @@
       text-align: center;
       max-width: 600px;
       padding: 20px;
-      background: #fff;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     h1 {
+      font-size: 2em;
       margin-bottom: 20px;
     }
 
     input {
       width: 80%;
-      padding: 10px;
+      padding: 12px;
       margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
     }
 
     button {
-      padding: 10px 20px;
-      background-color: #007BFF;
-      color: #fff;
+      padding: 12px 20px;
+      background-color: #fff;
+      color: #6a11cb;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 1em;
       cursor: pointer;
+      transition: all 0.3s;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #2575fc;
+      color: #fff;
     }
 
     #result {
       margin-top: 20px;
       text-align: left;
     }
+
+    .suggestions {
+      text-align: left;
+      margin-top: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .loading {
+      margin-top: 10px;
+    }
+
+    .loading svg {
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Yezidi dictionary</h1>
-    <input type="text" id="searchInput" placeholder="dictionary..." />
-    <button id="searchButton">search...</button>
+    <h1>قاموس الكلمات المطور</h1>
+    <input type="text" id="searchInput" placeholder="ابحث عن كلمة..." oninput="showSuggestions()" />
+    <button id="searchButton">بحث</button>
+    <div class="loading" id="loading" style="display: none;">
+      <svg viewBox="0 0 50 50">
+        <circle cx="25" cy="25" r="20" fill="none" stroke="#fff" stroke-width="5" />
+      </svg>
+    </div>
+    <div id="suggestions" class="suggestions"></div>
     <div id="result"></div>
   </div>
 
@@ -89,12 +129,46 @@
         return;
       }
 
-      const meaning = dictionary[query];
-      if (meaning) {
-        document.getElementById('result').innerHTML = `<p><strong>${query}:</strong> ${meaning}</p>`;
-      } else {
-        document.getElementById('result').innerHTML = "<p>عذرًا، لم يتم العثور على معنى لهذه الكلمة.</p>";
+      // عرض اللودينغ
+      const loadingElement = document.getElementById('loading');
+      loadingElement.style.display = 'block';
+
+      // تأخير 3 ثوانٍ لمحاكاة التحميل
+      setTimeout(() => {
+        loadingElement.style.display = 'none';
+
+        const meaning = dictionary[query];
+        if (meaning) {
+          document.getElementById('result').innerHTML = `<p><strong>${query}:</strong> ${meaning}</p>`;
+        } else {
+          const suggestions = Object.keys(dictionary).filter(word =>
+            word.includes(query)
+          );
+
+          document.getElementById('result').innerHTML = suggestions.length > 0
+            ? `<p>هل تقصد: ${suggestions.map(s => `<strong>${s}</strong>`).join(', ')}؟</p>`
+            : "<p>عذرًا، لم يتم العثور على معنى لهذه الكلمة.</p>";
+        }
+      }, 3000);
+    }
+
+    async function showSuggestions() {
+      const dictionary = await fetchDictionary();
+      if (!dictionary) return;
+
+      const query = document.getElementById('searchInput').value.trim();
+      if (query === "") {
+        document.getElementById('suggestions').innerHTML = "";
+        return;
       }
+
+      const suggestions = Object.keys(dictionary).filter(word =>
+        word.includes(query)
+      );
+
+      document.getElementById('suggestions').innerHTML = suggestions.length > 0
+        ? suggestions.map(s => `<p>${s}</p>`).join('')
+        : "<p>لا توجد اقتراحات.</p>";
     }
 
     document.getElementById('searchButton').addEventListener('click', searchWord);
