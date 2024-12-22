@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yezidi Dictionary</title>
+  <title>قاموس الكلمات المطور</title>
   <style>
     body {
       font-family: "Arial", sans-serif;
@@ -68,6 +68,17 @@
       padding: 10px;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .suggestions p {
+      margin: 5px 0;
+      padding: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .suggestions p:hover {
+      background-color: rgba(255, 255, 255, 0.5);
     }
 
     .loading {
@@ -116,40 +127,27 @@
       }
     }
 
-    async function searchWord() {
+    async function searchWord(query) {
       const dictionary = await fetchDictionary();
       if (!dictionary) {
         document.getElementById('result').innerHTML = "<p>تعذر تحميل ملف القاموس.</p>";
         return;
       }
 
-      const query = document.getElementById('searchInput').value.trim();
-      if (query === "") {
-        document.getElementById('result').innerHTML = "<p>الرجاء إدخال كلمة للبحث.</p>";
-        return;
-      }
-
-      // عرض اللودينغ
       const loadingElement = document.getElementById('loading');
       loadingElement.style.display = 'block';
 
-      // تأخير 3 ثوانٍ لمحاكاة التحميل
       setTimeout(() => {
         loadingElement.style.display = 'none';
 
-        const meaning = dictionary[query];
-        if (meaning) {
-          document.getElementById('result').innerHTML = `<p><strong>${query}:</strong> ${meaning}</p>`;
+        const result = dictionary[query];
+        if (result) {
+          document.getElementById('result').innerHTML = `
+            <p><strong>${query}:</strong> ${result.meaning} (${result.ezidi})</p>`;
         } else {
-          const suggestions = Object.keys(dictionary).filter(word =>
-            word.includes(query)
-          );
-
-          document.getElementById('result').innerHTML = suggestions.length > 0
-            ? `<p>هل تقصد: ${suggestions.map(s => `<strong>${s}</strong>`).join(', ')}؟</p>`
-            : "<p>عذرًا، لم يتم العثور على معنى لهذه الكلمة.</p>";
+          document.getElementById('result').innerHTML = "<p>عذرًا، لم يتم العثور على معنى لهذه الكلمة.</p>";
         }
-      }, 3000);
+      }, 1000);
     }
 
     async function showSuggestions() {
@@ -167,11 +165,20 @@
       );
 
       document.getElementById('suggestions').innerHTML = suggestions.length > 0
-        ? suggestions.map(s => `<p>${s}</p>`).join('')
+        ? suggestions.map(s => `<p onclick="selectSuggestion('${s}')">${s}</p>`).join('')
         : "<p>لا توجد اقتراحات.</p>";
     }
 
-    document.getElementById('searchButton').addEventListener('click', searchWord);
+    function selectSuggestion(word) {
+      document.getElementById('searchInput').value = word;
+      searchWord(word);
+      document.getElementById('suggestions').innerHTML = "";
+    }
+
+    document.getElementById('searchButton').addEventListener('click', () => {
+      const query = document.getElementById('searchInput').value.trim();
+      searchWord(query);
+    });
   </script>
 </body>
 </html>
