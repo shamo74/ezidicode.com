@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENS.Encyclopedia</title>
+    <style>
+        @font-face {
+            font-family: 'CustomArabicFont';
+            src: url('CustomArabicFont.ttf') format('truetype');
+        }
+
+        * {
+            font-family: 'CustomArabicFont', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            color: #333;
+            font-size: 13px;
+            overflow-x: hidden;
+        }
+
+        .top-bar {
+            display: flex;
+            flex-direction: column; /* Change direction to vertical */
+            justify-content: flex-start;
+            align-items: flex-start;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            color: #383838;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: bold;
+            color: #383838;
+      
+        }
+
+        /* Language Select Button in the top-right corner */
+        .language-select {
+            position: absolute;
+            top: 20px;
+            right: 28px;
+        }
+
+        .language-select select {
+            font-size: 11px;
+            padding: 10px;
+            border-radius: 15px;
+            border: none;
+            background: #383838;
+            color: white;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            margin-top: 3px; /* Add margin to space it out from logo */
+        }
+
+        .search-input {
+            padding: 5px 12px;
+            border-radius: 30px;
+            border: 10px solid #383838;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 35px;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 999;
+            display: none;
+        }
+
+        .search-results a {
+            display: block;
+            padding: 10px;
+            color: #0072ff;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-results a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .sidebar-menu {
+            position: fixed;
+            top: 140;
+            left: -500px;
+            width: 150px;
+            height: 40%;
+            background: #383838;
+            color: white;
+            padding: 10px;
+            transition: left 0.1s ease-in-out;
+            z-index: 1000;
+            box-shadow: 6px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 18px;
+        }
+
+        .sidebar-menu.active {
+            left: 15;
+            
+        }
+
+        .sidebar-menu a {
+            display: block;
+            color: white;
+            padding: 10px 10px;
+            text-decoration: none;
+            margin-bottom: 5px;
+            border-radius: 30px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: #0072ff;
+        }
+
+        .close-btn {
+            font-size: 18px;
+            background-color: #FFFFFF;
+            color: #FF000F;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 56px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .grid-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 100px 20px 20px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid-item {
+            background: white;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .grid-item img {
+            max-width: 80px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.2);
+        }
+
+        .grid-item span {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top bar -->
+    <header class="top-bar">     
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;      <l class="logo">ENS.encyclopedia</div>
+</div>
+     
+
+        <!-- Search container below the logo -->
+        <div class="search-container">
+            <input type="text" class="search-input" id="search-input" onkeyup="searchSuggestions()" placeholder="Search...">
+            <div class="search-results" id="search-results"></div>
+        </div>
+
+        <!-- Language Select in top-right corner -->
+        <div class="language-select">
+            <select id="language-select" onchange="changeLanguage()">
+                <option value="index.html">English</option>
+                <option value="index-ar.html">العربية</option>
+                <option value="index-ku.html">كوردى</option>
+                <option value="index-yez.html">𐺩𐺏𐺨𐺋𐺨</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- Sidebar menu -->
+    <div class="sidebar-menu" id="sidebar-menu">
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
+        <a href="index.html">Home</a>
+        <a href="Services.html">Services</a>
+        <a href="information.html">Information</a>
+        <a href="Contactus.html">Contact Us</a>
+    </div>
+
+    <!-- Service grid section -->
+    <br/><br/><br/>
+    <div class="grid-section">
+        <!-- Add your grid items here -->
+    </div>
+
+    <script>
+        let suggestions = [];
+
+        // Load data from data.json
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                suggestions = data;
+            })
+            .catch(error => {
+                console.error('Error loading data.json:', error);
+            });
+
+        function toggleMenu() {
+            const sidebarMenu = document.getElementById('sidebar-menu');
+            sidebarMenu.classList.toggle('active');
+        }
+
+        function changeLanguage() {
+            const language = document.getElementById('language-select').value;
+            window.location.href = language;
+        }
+
+        function searchSuggestions() {
+            const query = document.getElementById('search-input').value;
+            const resultsContainer = document.getElementById('search-results');
+            resultsContainer.innerHTML = ''; // Clear previous results
+
+            if (query.length < 2) {
+                resultsContainer.style.display = 'none';
+                return;
+            }
+
+            const filteredResults = suggestions.filter(item => item.name.toLowerCase().includes(query.toLowerCase()));
+
+            if (filteredResults.length > 0) {
+                resultsContainer.style.display = 'block';
+                filteredResults.forEach(item => {
+                    const suggestionItem = document.createElement('a');
+                    suggestionItem.href = item.link;
+                    suggestionItem.textContent = item.name;
+                    resultsContainer.appendChild(suggestionItem);
+                });
+            } else {
+                resultsContainer.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>
