@@ -1,0 +1,30 @@
+[
+    {
+        "name": "دخيل اوصمان",
+        "link": "index.html"
+    },
+    {
+        "name": "دخيل كتي",
+        "link": "Services.html"
+    },
+    {
+        "name": "علي دخيل",
+        "link": "information.html"
+    },
+    {
+        "name": "Contact Us",
+        "link": "Contactus.html"
+    },
+    {
+        "name": "About Us",
+        "link": "about.html"
+    },
+    {
+        "name": "Blog",
+        "link": "blog.html"
+    },
+    {
+        "name": "FAQ",
+        "link": "faq.html"
+    }
+]
