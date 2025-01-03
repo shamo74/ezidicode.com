@@ -1,39 +1,22 @@
 [
-  {
-
-    "name": "ميرزا حجي القيراني",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0FDLICfVenwTVtuzjxfmMsJ3Q2bOrMAZKRA&s",
-    "link": "https://www.ezidicode.com/addpost.html"
-  },
-  {
-    "name": "دخيل اوصمان",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Francis_Bacon_by_John_Vanderbank.jpg/220px-Francis_Bacon_by_John_Vanderbank.jpg",
-    "link": "https://ar.wikipedia.org/wiki/%D9%81%D8%B1%D8%A7%D9%86%D8%B3%D9%8A%D8%B3_%D8%A8%D9%8A%D9%83%D9%88%D9%86"
-  },
-  {
-    "name": "ليلى",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Francis_Bacon_by_John_Vanderbank.jpg/220px-Francis_Bacon_by_John_Vanderbank.jpg",
-    "link": "https://ar.wikipedia.org/wiki/%D9%81%D8%B1%D8%A7%D9%86%D8%B3%D9%8A%D8%B3_%D8%A8%D9%8A%D9%83%D9%88%D9%86"
-  },
-  {
-    "name": "دخيل اوصمان",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Francis_Bacon_by_John_Vanderbank.jpg/220px-Francis_Bacon_by_John_Vanderbank.jpg",
-    "link": "https://ar.wikipedia.org/wiki/%D9%81%D8%B1%D8%A7%D9%86%D8%B3%D9%8A%D8%B3_%D8%A8%D9%8A%D9%83%D9%88%D9%86"
-  },
-  {
-    "name": "دخيل اوصمان",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Francis_Bacon_by_John_Vanderbank.jpg/220px-Francis_Bacon_by_John_Vanderbank.jpg",
-    "link": "https://ar.wikipedia.org/wiki/%D9%81%D8%B1%D8%A7%D9%86%D8%B3%D9%8A%D8%B3_%D8%A8%D9%8A%D9%83%D9%88%D9%86"
-  },
-  {
-    "name": "دخيل اوصمان",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Francis_Bacon_by_John_Vanderbank.jpg/220px-Francis_Bacon_by_John_Vanderbank.jpg",
-    "link": "https://ar.wikipedia.org/wiki/%D9%81%D8%B1%D8%A7%D9%86%D8%B3%D9%8A%D8%B3_%D8%A8%D9%8A%D9%83%D9%88%D9%86"
-  },
-  {
-    "name": "دخيل اوصمان",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Francis_Bacon_by_John_Vanderbank.jpg/220px-Francis_Bacon_by_John_Vanderbank.jpg",
-    "link": "https://ar.wikipedia.org/wiki/%D9%81%D8%B1%D8%A7%D9%86%D8%B3%D9%8A%D8%B3_%D8%A8%D9%8A%D9%83%D9%88%D9%86"
-  }
-  
+    {
+        "name": "أحمد بن محمد",
+        "image": "https://via.placeholder.com/100",
+        "link": "ens.html"
+    },
+    {
+        "name": "علي حسن",
+        "image": "https://via.placeholder.com/100",
+        "link": "ali.html"
+    },
+    {
+        "name": "سارة محمود",
+        "image": "https://via.placeholder.com/100",
+        "link": "sara.html"
+    },
+    {
+        "name": "فاطمة الزهراء",
+        "image": "https://via.placeholder.com/100",
+        "link": "fatima.html"
+    }
 ]
