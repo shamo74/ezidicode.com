@@ -138,6 +138,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
+            text-align: right;
         }
 
         table th, table td {
@@ -149,10 +150,12 @@
         table th {
             background-color: #f2f2f2;
             font-weight: bold;
+            text-align: right;
         }
 
         table tr:nth-child(even) {
             background-color: #f9f9f9;
+            text-align: right;
         }
 
         table tr:hover {
@@ -170,11 +173,13 @@
             justify-content: space-between;
             align-items: center;
             transition: all 0.3s ease;
+            text-align: right;
         }
 
         .story-container:hover {
             background-color: #e9ecef;
             transform: scale(1.05);
+            text-align: right;
         }
 
         .story-text {
@@ -184,6 +189,8 @@
             line-height: 1.6;
             transition: all 0.5s ease;
         }
+       
+   
 
         .story-text.show {
             display: block;
@@ -193,6 +200,7 @@
             font-size: 18px;
             transform: rotate(0deg);
             transition: transform 0.3s ease;
+            
         }
 
         .arrow.rotate {
@@ -223,9 +231,9 @@
         </div>
     </nav>
     <main>
-        <div class="content" id="content-container">
+        <div class="content" id="content-container"><br/><br/>
             <!-- سيتم تحميل المقالات هنا -->
-        </div>
+        <br/></div>
     </main>
     <footer>
         <p>&copy; 2025 ويكيبيديا. جميع الحقوق محفوظة.</p>
@@ -240,13 +248,13 @@
                 data.forEach(post => {
                     const postElement = document.createElement('div');
                     postElement.innerHTML = `
-                        <h2>${post.name}</h2>
+                        ${post.intro}
                         <img src="${post.image}" alt="صورة ${post.name}">
                         <table>
                             <tr><th>الاسم</th><td>${post.name}</td></tr>
                             <tr><th>العمر</th><td>${post.age}</td></tr>
                             <tr><th>الدولة</th><td>${post.country}</td></tr>
-                            <tr><th>الثروة</th><td>${post.wealth}</td></tr>
+                            <tr><th>تاريخ</th><td>${post.wealth}</td></tr>
                             <tr><th>تفاصيل الحياة</th><td>${post.lifeDetails}</td></tr>
                             <tr><th>الحالة</th><td>${post.status}</td></tr>
                             <tr><th>تفاصيل إضافية</th><td>${post.additionalDetails}</td></tr>
