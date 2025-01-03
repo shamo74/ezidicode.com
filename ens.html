@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ويكيبيديا - الموسوعة الحرة">
     <title>ويكيبيديا - الموسوعة الحرة</title>
     <style>
+        /* تنسيقات الصفحة */
         body {
             font-family: "Arial", sans-serif;
             margin: 0;
@@ -17,6 +19,10 @@
             background-color: #2a4b8d;
             color: #fff;
             padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
         }
 
         header h1 {
@@ -29,16 +35,17 @@
             background-color: #f0f0f0;
             border-bottom: 1px solid #ccc;
             padding: 10px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            position: fixed;
+            top: 60px;
+            z-index: 999;
+            width: 100%;
         }
 
         nav .search-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
             gap: 10px;
+            
         }
 
         nav input[type="text"] {
@@ -47,12 +54,13 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
+            text-align: right;
         }
 
         nav .suggestions {
             position: absolute;
             background: #fff;
-            border: 1px solid #ddd;
+            border: 10px solid #ddd;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             max-height: 200px;
@@ -76,6 +84,12 @@
             border-radius: 50%;
             margin-right: 10px;
         }
+          
+
+        .Marhaba{
+            transform: scale(1.05);
+            text-align: right;
+        }
 
         nav .suggestion-item span {
             font-size: 14px;
@@ -86,7 +100,7 @@
             gap: 10px;
             margin-top: 15px;
         }
-
+ 
         nav a {
             color: #0645ad;
             text-decoration: none;
@@ -104,7 +118,7 @@
         main {
             display: flex;
             justify-content: center;
-            margin: 20px;
+            margin-top: 150px;
         }
 
         .content {
@@ -122,10 +136,83 @@
             margin-bottom: 10px;
         }
 
-        .content p {
-            font-size: 16px;
+        .content img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: right;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+            text-align: right;
+        }
+
+        table tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .story-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9; 
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-align: right;
+        }
+
+        .story-container:hover {
+            background-color: #e9ecef;
+            transform: scale(1.05);
+            text-align: right;
+        }
+
+        .story-text {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px; 
             line-height: 1.6;
-            margin-bottom: 15px;
+            transition: all 0.5s ease;
+        }
+       
+   
+
+        .story-text.show {
+            display: block;
+        }
+
+        .arrow {
+            font-size: 18px;
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+            
+        }
+
+        .arrow.rotate {
+            transform: rotate(180deg);
         }
 
         footer {
@@ -134,100 +221,72 @@
             text-align: center;
             padding: 15px;
             border-top: 1px solid #ddd;
-            margin-top: 20px;
         }
-
-        .disclaimer {
-            font-size: 14px;
-            text-align: center;
-            padding: 10px;
-            color: #606770;
-            margin-top: 20px;
-        }
-
-        .disclaimer a {
-            color: #0645ad;
-            text-decoration: none;
-        }
-
     </style>
 </head>
-<body>
+<body onclick="hideSuggestions()">
     <header>
-        <h1>موسوعة أينس العربية</h1>
+        <h1>موسوعة إينس العربية</h1>
     </header>
     <nav>
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="Search..." oninput="searchSuggestions()">
+            <input type="text" id="search-input" placeholder="...البحث." oninput="searchSuggestions()">
             <div class="suggestions" id="suggestions-list"></div>
-        </div>
+         </div> 
         <div class="buttons">
-            <a href="addpost.html">اضافة مقال</a>
-            <a href="editpost.html">تعديل المقال</a>
+            <a href="addpost.html">إضافة مقال</a>
+            <a href="editpost.html">تعديل مقال</a>
+                  <a href="editpost.html">أخر الأخبار</a>
+                  
         </div>
     </nav>
     <main>
-        <div class="content">
-            <h2>عنوان المقال</h2>
-            <p>هذا مثال على نص صفحة يشبه صفحة ويكيبيديا. يمكن إضافة المزيد من الفقرات والمحتوى بنفس التنسيق.</p>
-        </div>
+        <div class="content" id="content-container"><br/><br/>
+        <h1/><div class="Marhaba">مرحبًا 
+        </h1><div class="Marhaba">
+موسوعة العربية إينس التي يضيف مقالات عن الشخصيات وتاريخ والأذب وعلوم الإنسانية والبشرية في هذا المنتدى مقروءه 
+     
+   <br/></div>
     </main>
     <footer>
-        <p>تم إنشاؤه لمحاكاة تصميم ويكيبيديا.</p>
+        <p>&copy; 2025 إينيس. جميع الحقوق محفوظة.</p>
     </footer>
 
-    <!-- إخلاء المسؤولية -->
-    <div class="disclaimer">
-        <p>جميع الحقوق محفوظة. <a href="#">إخلاء المسؤولية</a>.</p>
-    </div>
-
     <script>
-        let data = []; // مصفوفة لتخزين البيانات من ملف data.json
 
-        // تحميل البيانات من ملف JSON خارجي
+        // البحث
+        let data = [];
         fetch('data.json')
             .then(response => response.json())
             .then(jsonData => {
                 data = jsonData;
-            })
-            .catch(error => console.error('خطأ في تحميل البيانات:', error));
+            });
 
         function searchSuggestions() {
             const query = document.getElementById('search-input').value.toLowerCase();
             const suggestionsList = document.getElementById('suggestions-list');
-            suggestionsList.innerHTML = ''; // مسح الاقتراحات السابقة
-
+            suggestionsList.innerHTML = '';
             if (query) {
                 const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
                 filteredData.forEach(item => {
                     const suggestionItem = document.createElement('div');
                     suggestionItem.className = 'suggestion-item';
-                    suggestionItem.onclick = () => {
-                        window.location.href = item.url;
-                        suggestionsList.style.display = 'none'; // إخفاء الاقتراحات عند الضغط
-                    };
-
+                    suggestionItem.onclick = () => window.location.href = item.link;
                     suggestionItem.innerHTML = `
                         <img src="${item.image}" alt="${item.name}">
                         <span>${item.name}</span>
                     `;
                     suggestionsList.appendChild(suggestionItem);
                 });
-
-                suggestionsList.style.display = filteredData.length ? 'block' : 'none';
+                suggestionsList.style.display = 'block';
             } else {
                 suggestionsList.style.display = 'none';
             }
         }
 
-        // إخفاء الاقتراحات عند الضغط في أي مكان آخر
-        document.addEventListener('click', function(event) {
-            const suggestionsList = document.getElementById('suggestions-list');
-            const searchInput = document.getElementById('search-input');
-            if (!searchInput.contains(event.target) && !suggestionsList.contains(event.target)) {
-                suggestionsList.style.display = 'none';
-            }
-        });
+        function hideSuggestions() {
+            document.getElementById('suggestions-list').style.display = 'none';
+        }
     </script>
 </body>
 </html>
