@@ -1,609 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yezidi Translate</title>
+    <title>ويكيبيديا - الموسوعة الحرة</title>
     <style>
-        @font-face {
-            font-family: 'CustomArabicFont';
-            src: url('CustomArabicFont.ttf') format('truetype');
-        }
-
-        * {
-            font-family: 'CustomArabicFont', sans-serif;
+        body {
+            font-family: "Arial", sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background-color: #f8f9fa;
+            color: #202122;
         }
 
-        body {
-            
-            color: #333;
-            font-size: 10px;
-            overflow-x: hidden;
+        header {
+            background-color: #2a4b8d;
+            color: #fff;
+            padding: 10px 20px;
         }
 
-        .top-bar {
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        nav {
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(5px);
-            padding: 3px 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            
+            flex-direction: column;
+            align-items: flex-start;
         }
 
-        .menu-icon {
-            font-size: 20px;
-            cursor: pointer;
-            height: 100%;
+        nav .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
         }
 
-        .logo {
-        	
-            font-size: 25px;
-            font-weight:bold ;
-            color: #7D7D7D;
-        }
-
-        .language-select select {
-            font-size: 14px;
-            padding: 5px; 
-            border-radius: 1px;
-            border: none;
-            background: #F8F8F8;
-            color: #414141;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .sidebar-menu {
-            position: fixed;
-            top: 0;
-            left: -300px;
+        nav input[type="text"] {
             width: 300px;
-            height: 100%;
-            background: #F6F6F6;
-            color: white;
-            padding: 20px;
-            transition: left 0.1s ease-in-out;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        nav .suggestions {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
             z-index: 1000;
-            box-shadow: 4px 0 6px rgba(0, 0, 0, 0.2);
+            width: 300px;
         }
 
-        .sidebar-menu.active {
-            left: 0;
-            
-        }
-
-        .sidebar-menu a {
-            display: block;
-            color: #2E2E2E;
-            padding: 10px 15px;
-            text-decoration: none;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-            
-        }
-
-        .sidebar-menu a:hover {
-            background: #313131;
-            
-        }
-
-        .close-btn {
-            font-size: 18px;
-            background-color: #323232;
-            color: white;
-            border: none;
-            padding: 5px 35px;
-            border-radius: 5px;
+        nav .suggestion-item {
+            padding: 10px;
+            display: flex;
+            align-items: center;
             cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        nav .suggestion-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        nav .suggestion-item span {
+            font-size: 14px;
+        }
+
+        nav .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: #0645ad;
+            text-decoration: none;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .content {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            font-size: 22px;
             margin-bottom: 10px;
         }
 
-        .grid-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            padding: 100px 20px 20px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .grid-item {
-            background: white;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .grid-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .grid-item img {
-            max-width: 80px;
+        .content p {
+            font-size: 16px;
+            line-height: 1.6;
             margin-bottom: 15px;
-            transition: transform 0.3s ease;
         }
 
-        .grid-item:hover img {
-            transform: scale(1.2);
+        footer {
+            background-color: #f8f9fa;
+            color: #606770;
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
         }
 
-        .grid-item span {
-            font-size: 16px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Top bar -->
-    <header class="top-bar">
-        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-        <div class="logo">eNS_</div>
-        <br/>
-        
-        </br>
-        <div class="language-select">
-            <select id="language-select" onchange="changeLanguage()">
-                <option value="index.html">اللغة العربية</option>
-                <option value="index-ar.html">العربية</option>
-                <option value="index-ku.html">كوردى</option>
-                <option value="index-yez.html">𐺩𐺏𐺨𐺋𐺨</option>
-            </select>
-        </div>
-        <br/>
-        
-    </header>
-
-    <!-- Sidebar menu -->
-    <div class="sidebar-menu" id="sidebar-menu">
-        <button class="close-btn" onclick="toggleMenu()">✕</button>
-        <a href="index.html">Home</a>
-        <a href="Services.html">Services</a>
-        <a href="information.html">Information</a>
-        <a href="Contactus.html">Contact Us</a>
-    </div>
-
-    <!-- Service grid section -->
-    <br/><br/><br/>
-<style>
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-    iframe {
-      width: 100%;
-      height: 90%;
-      border: none;
-    }
-  </style>
-</head>
-<body>
-
-    <style>
-
-
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 5px;
-            font-size: 16px;
-            border-radius: 1px;
-            border: 1px solid #252525;
-            outline: none;
-            left: -300px;
-        }
-
-        .suggestions {
-            position: absolute;
-            top: 230px;
-            width: 100%;
-            background-color: #F0F0F0;
-            border: 6px solid #3D3D3D;
-            border-radius: 5px;
-            max-height: 500px;
-            overflow-y: auto;
-            display: none;
-   
-        }
-
-        .suggestion-item {
+        .disclaimer {
+            font-size: 14px;
+            text-align: center;
             padding: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
+            color: #606770;
+            margin-top: 20px;
         }
 
-        .suggestion-item:hover {
-            background-color: #f1f1f1;
+        .disclaimer a {
+            color: #0645ad;
+            text-decoration: none;
         }
 
-        .suggestion-item img {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-            border-radius: 1%;
-        }
-
-        .suggestion-item span {
-            font-size: 10px;
-        }
-        /* تنسيق الرابط */
-a {
-  font-family: Arial, sans-serif; /* الخط المستخدم */
-  font-size: 13px; /* حجم النص */
-  color: #282828; /* لون النص */
-  text-decoration: none; /* إزالة الخط السفلي */ 
-  padding: 1px 20px; /* مسافة داخلية حول النص */
-  border: 1px solid #303030; /* إطار */
-  border-radius: 1px; /* زوايا دائرية */
-  background-color: #; /* لون الخلفية */
-  display: inline-block; /* عرض الرابط ككتلة داخلية */
-  transition: all 0.3s ease; /* تأثير التغيير */
-}
-
-/* تأثير التمرير فوق الرابط */
-a:hover {
-  color: #ffffff; /* لون النص عند التمرير */
-  background-color: #0044cc; /* لون الخلفية عند التمرير */
-  border-color: #002a80; /* لون الإطار عند التمرير */
-  transform: scale(1.05); /* تكبير بسيط عند التمرير */
-}
-
-
-
-
-
-body {
-    
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.image-container {
-    text-align: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.image-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-.image-container .caption {
-    margin-top: 10px;
-    font-size: 1rem;
-    color: #555;
-}
-@font-face {
-    font-family: 'CustomArabicFont';
-    src: url('CustomArabicFont.ttf') format('truetype');
-}
-
-* {
-    font-family: 'CustomArabicFont', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    color: #333;
-    font-size: 16px; /* تعديل حجم النص الأساسي */
-    overflow-x: hidden;
-    line-height: 1.5; /* لتحسين تباعد النصوص */
-}
-
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(5px);
-    padding: 10px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.menu-icon {
-    font-size: 18px;
-    cursor: pointer;
-}
-
-.logo {
-    font-size: 18px;
-    font-weight: bold;
-    color: #7D7D7D;
-}
-
-.language-select select {
-    font-size: 14px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background: #f8f8f8;
-    color: #414141;
-    outline: none;
-    cursor: pointer;
-}
-
-.sidebar-menu {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    width: 250px; /* تقليل العرض */
-    height: 100%;
-    background: #f6f6f6;
-    color: white;
-    padding: 15px;
-    transition: left 0.2s ease-in-out;
-    z-index: 1000;
-    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.2);
-}
-
-.sidebar-menu.active {
-    left: 0;
-}
-
-.sidebar-menu a {
-    display: block;
-    color: #2e2e2e;
-    padding: 8px 12px;
-    text-decoration: none;
-    margin-bottom: 10px;
-    border-radius: 3px;
-    transition: background 0.3s ease;
-    font-size: 14px;
-}
-
-.sidebar-menu a:hover {
-    background: #e1e1e1;
-}
-
-.close-btn {
-    font-size: 14px;
-    background-color: #323232;
-    color: white;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.grid-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
-    padding: 80px 15px 15px 15px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.grid-item {
-    background: white;
-    color: #333;
-    text-align: center;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.grid-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.grid-item img {
-    max-width: 60px; /* تصغير حجم الصور */
-    margin-bottom: 10px;
-    transition: transform 0.3s ease;
-}
-
-.grid-item:hover img {
-    transform: scale(1.1);
-}
-
-.grid-item span {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.search-container {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    outline: none;
-}
-
-.suggestions {
-    position: absolute;
-    top: 100%;
-    width: 100%;
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    max-height: 300px;
-    overflow-y: auto;
-    display: none;
-    z-index: 10;
-}
-
-.suggestion-item {
-    padding: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.suggestion-item:hover {
-    background-color: #f1f1f1;
-}
-
-.suggestion-item img {
-    width: 30px;
-    height: 30px;
-    margin-right: 8px;
-    border-radius: 3px;
-}
-
-.suggestion-item span {
-    font-size: 12px;
-}
-
-.image-container {
-    text-align: center;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.image-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-.image-container .caption {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #555;
-}
     </style>
 </head>
 <body>
-
-<div class="search-container"><br/>
-
-
- <div class="image-container">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0FDLICfVenwTVtuzjxfmMsJ3Q2bOrMAZKRA&s" alt="HTML and CSS Image"><h1/>يوم وفاة شيخ العشيرة القيران</h1>
-        نستذكر يوم أليم
-    </div><div/>
-    
-    
-     
-
-<br/><center/><a/>
-    <input type="text" id="search-input" placeholder="Search..." oninput="searchSuggestions()">
-    <div class="suggestions" id="suggestions-list"></a></div>
-</div><center/>
- <a href="addpost.html">اضافة مقال</a>
-  <a href="addpost.html">
-تعديل المقال 
-</a>
-    </div>
-<script>
-    let data = []; // مصفوفة لتخزين البيانات من ملف data.json
-
-    // تحميل البيانات من ملف JSON خارجي
-    fetch('data.json')
-        .then(response => response.json())
-        .then(jsonData => {
-            data = jsonData;
-        })
-        .catch(error => console.error('خطأ في تحميل البيانات:', error));
-
-    function searchSuggestions() {
-        const query = document.getElementById('search-input').value.toLowerCase();
-        const suggestionsList = document.getElementById('suggestions-list');
-        suggestionsList.innerHTML = ''; // مسح الاقتراحات السابقة
-
-        if (query) {
-            const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
-            filteredData.forEach(item => {
-                const suggestionItem = document.createElement('div');
-                suggestionItem.className = 'suggestion-item';
-                suggestionItem.onclick = () => {
-                    window.location.href = item.url;
-                    suggestionsList.style.display = 'none'; // إخفاء الاقتراحات عند الضغط
-                };
-
-                suggestionItem.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
-                    <span>${item.name}</span>
-                `;
-                suggestionsList.appendChild(suggestionItem);
-            });
-
-            suggestionsList.style.display = filteredData.length ? 'block' : 'none';
-        } else {
-            suggestionsList.style.display = 'none';
-        }
-    }
-
-    // إخفاء الاقتراحات عند الضغط في أي مكان آخر
-    document.addEventListener('click', function(event) {
-        const suggestionsList = document.getElementById('suggestions-list');
-        const searchInput = document.getElementById('search-input');
-        if (!searchInput.contains(event.target) && !suggestionsList.contains(event.target)) {
-            suggestionsList.style.display = 'none';
-        }
-    });
-</script>
-
-</body>
-</html>
-        
+    <header>
+        <h1>موسوعة أينس العربية</h1>
+    </header>
+    <nav>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search..." oninput="searchSuggestions()">
+            <div class="suggestions" id="suggestions-list"></div>
         </div>
-    </section>
+        <div class="buttons">
+            <a href="addpost.html">اضافة مقال</a>
+            <a href="editpost.html">تعديل المقال</a>
+        </div>
+    </nav>
+    <main>
+        <div class="content">
+            <h2>عنوان المقال</h2>
+            <p>هذا مثال على نص صفحة يشبه صفحة ويكيبيديا. يمكن إضافة المزيد من الفقرات والمحتوى بنفس التنسيق.</p>
+        </div>
+    </main>
+    <footer>
+        <p>تم إنشاؤه لمحاكاة تصميم ويكيبيديا.</p>
+    </footer>
+
+    <!-- إخلاء المسؤولية -->
+    <div class="disclaimer">
+        <p>جميع الحقوق محفوظة. <a href="#">إخلاء المسؤولية</a>.</p>
+    </div>
 
     <script>
-        function toggleMenu() {
-            const sidebarMenu = document.getElementById('sidebar-menu');
-            sidebarMenu.classList.toggle('active');
+        let data = []; // مصفوفة لتخزين البيانات من ملف data.json
+
+        // تحميل البيانات من ملف JSON خارجي
+        fetch('data.json')
+            .then(response => response.json())
+            .then(jsonData => {
+                data = jsonData;
+            })
+            .catch(error => console.error('خطأ في تحميل البيانات:', error));
+
+        function searchSuggestions() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const suggestionsList = document.getElementById('suggestions-list');
+            suggestionsList.innerHTML = ''; // مسح الاقتراحات السابقة
+
+            if (query) {
+                const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
+                filteredData.forEach(item => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    suggestionItem.onclick = () => {
+                        window.location.href = item.url;
+                        suggestionsList.style.display = 'none'; // إخفاء الاقتراحات عند الضغط
+                    };
+
+                    suggestionItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <span>${item.name}</span>
+                    `;
+                    suggestionsList.appendChild(suggestionItem);
+                });
+
+                suggestionsList.style.display = filteredData.length ? 'block' : 'none';
+            } else {
+                suggestionsList.style.display = 'none';
+            }
         }
 
-        function changeLanguage() {
-            const language = document.getElementById('language-select').value;
-            window.location.href = language;
-        }
+        // إخفاء الاقتراحات عند الضغط في أي مكان آخر
+        document.addEventListener('click', function(event) {
+            const suggestionsList = document.getElementById('suggestions-list');
+            const searchInput = document.getElementById('search-input');
+            if (!searchInput.contains(event.target) && !suggestionsList.contains(event.target)) {
+                suggestionsList.style.display = 'none';
+            }
+        });
     </script>
-
 </body>
 </html>
