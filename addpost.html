@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ويكيبيديا - الموسوعة الحرة</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #202122;
+        }
+
+        header {
+            background-color: #2a4b8d;
+            color: #fff;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            left: 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        nav {
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: fixed;
+            top: 60px; 
+            z-index: 999;
+            width: 100%;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            margin-top: 150px;
+        }
+
+        .content {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .story-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .story-container:hover {
+            background-color: #e9ecef;
+            transform: scale(1.05);
+        }
+
+        .story-text {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px; 
+            line-height: 1.6;
+            transition: all 0.5s ease;
+        }
+
+        .story-text.show {
+            display: block;
+        }
+
+        .arrow {
+            font-size: 18px;
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+
+        .arrow.rotate {
+            transform: rotate(180deg);
+        }
+        .intro-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #555;
+}
+body {
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #202122;
+        }
+
+        header {
+            background-color: #2a4b8d;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        nav {
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        nav .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        nav input[type="text"] {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        nav .suggestions {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            width: 300px;
+        }
+
+        nav .suggestion-item {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        nav .suggestion-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        nav .suggestion-item span {
+            font-size: 14px;
+        }
+
+        nav .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: #0645ad;
+            text-decoration: none;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .content {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            color: #606770;
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+        .disclaimer {
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+            color: #606770;
+            margin-top: 20px;
+        }
+
+        .disclaimer a {
+            color: #0645ad;
+            text-decoration: none;
+        }
+
+ 
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ويكيبيديا - الموسوعة الحرة</h1>
+    </header>
+    <nav>
+           <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search..." oninput="searchSuggestions()">
+            <div class="suggestions" id="suggestions-list"></div>
+        </div>
+        <div class="buttons">
+            <a href="addpost.html">اضافة مقال</a>
+            <a href="editpost.html">تعديل المقال</a>
+        </div>
+    </nav>
+    <main>
+        <div class="content" id="content-container"><br/><br/><br/><br/><br/><br/><br/>
+
+        </div>
+    </main>
+
+    <script>
+        // تحميل البيانات من ملف JSON
+        // تحميل البيانات من ملف JSON
+fetch('posts.json')
+    .then(response => response.json())
+    .then(data => {
+        const contentContainer = document.getElementById('content-container');
+        
+        data.forEach(post => {
+            // إنشاء المحتوى بناءً على البيانات من JSON
+            const postElement = document.createElement('div');
+
+            // عرض النص التوضيحي في بداية المقال
+            postElement.innerHTML = `
+                <h2>${post.name}</h2>
+                <p class="intro-text">${post.introText}</p> <!-- النص التوضيحي في بداية المقال -->
+                <img src="${post.image}" alt="صورة ${post.name}" />
+                <table>
+                    <tr><th>الاسم</th><td>${post.name}</td></tr>
+                    <tr><th>العمر</th><td>${post.age}</td></tr>
+                    <tr><th>الدولة</th><td>${post.country}</td></tr>
+                    <tr><th>الثروة</th><td>${post.wealth}</td></tr>
+                    <tr><th>تفاصيل الحياة</th><td>${post.lifeDetails}</td></tr>
+                    <tr><th>الحالة</th><td>${post.status}</td></tr>
+                    <tr><th>تفاصيل إضافية</th><td>${post.additionalDetails}</td></tr>
+                </table>
+                <div class="story-container" onclick="toggleStory('${post.name}')">
+                    <h3>قصة حياته</h3>
+                    <div class="arrow" id="arrow-${post.name}">&#x2193;</div>
+                    <div class="story-text" id="story-text-${post.name}">
+                        <p>${post.story}</p>
+                    </div>
+                </div>
+            `;
+            contentContainer.appendChild(postElement);
+        });
+    });
+    
+        // وظيفة لعرض / إخفاء قصة الحياة
+        function toggleStory(name) {
+            const storyText = document.getElementById(`story-text-${name}`);
+            const arrow = document.getElementById(`arrow-${name}`);
+
+            storyText.classList.toggle('show');
+            arrow.classList.toggle('rotate');
+        }
+    </script>
+    <script>
+        let data = []; // مصفوفة لتخزين البيانات من ملف data.json
+
+        // تحميل البيانات من ملف JSON خارجي
+        fetch('data.json')
+            .then(response => response.json())
+            .then(jsonData => {
+                data = jsonData;
+            })
+            .catch(error => console.error('خطأ في تحميل البيانات:', error));
+
+        function searchSuggestions() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const suggestionsList = document.getElementById('suggestions-list');
+            suggestionsList.innerHTML = ''; // مسح الاقتراحات السابقة
+
+            if (query) {
+                const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
+                filteredData.forEach(item => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    suggestionItem.onclick = () => {
+                        window.location.href = item.url;
+                        suggestionsList.style.display = 'none'; // إخفاء الاقتراحات عند الضغط
+                    };
+
+                    suggestionItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <span>${item.name}</span>
+                    `;
+                    suggestionsList.appendChild(suggestionItem);
+                });
+
+                suggestionsList.style.display = filteredData.length ? 'block' : 'none';
+            } else {
+                suggestionsList.style.display = 'none';
+            }
+        }
+
+        // إخفاء الاقتراحات عند الضغط في أي مكان آخر
+        document.addEventListener('click', function(event) {
+            const suggestionsList = document.getElementById('suggestions-list');
+            const searchInput = document.getElementById('search-input');
+            if (!searchInput.contains(event.target) && !suggestionsList.contains(event.target)) {
+                suggestionsList.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
