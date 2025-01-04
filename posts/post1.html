@@ -1,1 +1,330 @@
- 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ويكيبيديا - الموسوعة الحرة">
+    <title>ويكيبيديا - الموسوعة الحرة</title>
+    <style>
+        /* تنسيقات الصفحة */
+        body {
+            @font-face {
+            font-family: 'CustomArabicFont';
+            src: url('CustomArabicFont.ttf') format('truetype');
+        }
+
+        * {
+            font-family: 'CustomArabicFont', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #202122;
+        }
+
+        header {
+            background-color: #2a4b8d;
+            color: #fff;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        nav {
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 20px;
+            position: fixed;
+            top: 60px;
+            z-index: 999;
+            width: 100%;
+        }
+
+        nav .search-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        nav input[type="text"] {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        nav .suggestions {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            width: 300px;
+        }
+
+        nav .suggestion-item {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        nav .suggestion-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        nav .suggestion-item span {
+            font-size: 14px;
+        }
+
+        nav .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: #0645ad;
+            text-decoration: none;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            margin-top: 150px;
+        }
+
+        .content {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .content img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: right;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+            text-align: right;
+        }
+
+        table tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .story-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-align: right;
+        }
+
+        .story-container:hover {
+            background-color: #e9ecef;
+            transform: scale(1.05);
+            text-align: right;
+        }
+
+        .story-text {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px; 
+            line-height: 1.6;
+            transition: all 0.5s ease;
+        }
+       
+   
+
+        .story-text.show {
+            display: block;
+        }
+
+        .arrow {
+            font-size: 18px;
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+            
+        }
+
+        .arrow.rotate {
+            transform: rotate(180deg);
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            color: #606770;
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .Marhaba{
+            transform: scale(1.05);
+            text-align: right; }
+    </style>
+</head>
+<body onclick="hideSuggestions()">
+    <header>
+        <h1>ويكيبيديا - الموسوعة الحرة</h1>
+    </header>
+    <nav>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="ابحث..." oninput="searchSuggestions()">
+            <div class="suggestions" id="suggestions-list"></div>
+        </div>
+        <div class="buttons">
+            <a href="addpost.html">إضافة مقال</a>
+            <a href="editpost.html">تعديل مقال</a>
+        </div>
+    </nav>
+    <main>
+        <div class="content" id="content-container"><br/><br/>
+      <div class="Marhaba">      <!-- سيتم تحميل المقالات هنا -->
+        <br/></div>
+    </main>
+    <footer>
+        <p>&copy; 2025 ويكيبيديا. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script>
+        // تحميل المقالات من ملف JSON
+        fetch('posts.json')
+            .then(response => response.json())
+            .then(data => {
+                const contentContainer = document.getElementById('content-container');
+                data.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.innerHTML = `
+                        ${post.intro}
+                        <img src="${post.image}" alt="صورة ${post.name}">
+                        <table>
+                            <tr><th>الاسم</th><td>${post.name}</td></tr>
+                            <tr><th>العمر</th><td>${post.age}</td></tr>
+                            <tr><th>الدولة</th><td>${post.country}</td></tr>
+                            <tr><th>تاريخ</th><td>${post.wealth}</td></tr>
+                            <tr><th>تفاصيل الحياة</th><td>${post.lifeDetails}</td></tr>
+                            <tr><th>الحالة</th><td>${post.status}</td></tr>
+                            <tr><th>تفاصيل إضافية</th><td>${post.additionalDetails}</td></tr>
+                        </table>
+                        <div class="story-container" onclick="toggleStory('${post.name}')">
+                            <h3>قصة حياته</h3>
+                            <div class="arrow" id="arrow-${post.name}">&#x2193;</div>
+                            <div class="story-text" id="story-text-${post.name}">
+                                <p>${post.story}</p>
+                            </div>
+                        </div>
+                    `;
+                    contentContainer.appendChild(postElement);
+                });
+            });
+
+        // عرض/إخفاء القصة
+        function toggleStory(name) {
+            const storyText = document.getElementById(`story-text-${name}`);
+            const arrow = document.getElementById(`arrow-${name}`);
+            storyText.classList.toggle('show');
+            arrow.classList.toggle('rotate');
+        }
+
+        // البحث
+        let data = [];
+        fetch('data.json')
+            .then(response => response.json())
+            .then(jsonData => {
+                data = jsonData;
+            });
+
+        function searchSuggestions() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const suggestionsList = document.getElementById('suggestions-list');
+            suggestionsList.innerHTML = '';
+            if (query) {
+                const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
+                filteredData.forEach(item => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    suggestionItem.onclick = () => window.location.href = item.link;
+                    suggestionItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <span>${item.name}</span>
+                    `;
+                    suggestionsList.appendChild(suggestionItem);
+                });
+                suggestionsList.style.display = 'block';
+            } else {
+                suggestionsList.style.display = 'none';
+            }
+        }
+
+        function hideSuggestions() {
+            document.getElementById('suggestions-list').style.display = 'none';
+        }
+    </script>
+</body>
+</html> 
