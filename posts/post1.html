@@ -294,7 +294,7 @@
 
         // البحث
         let data = [];
-        fetch('data.json')
+        fetch('https://raw.githubusercontent.com/shamo74/ezidicode.com/refs/heads/main/posts/dataposts.json')
             .then(response => response.json())
             .then(jsonData => {
                 data = jsonData;
