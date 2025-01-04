@@ -1,0 +1,22 @@
+[
+    {
+        "name": "ميرزا حجي القيراني",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv6gF7q8MqXijpV6n4ok6jlgg7bT9Vmi8a_g&s",
+        "link": "addpost.html"
+    },
+    {
+        "name": "دخيل اوصمان",
+        "image": "https://yt3.googleusercontent.com/ytc/AIdro_kCcM-FnT8HwV2G6ZRyWHiO_kOkNF4HN_rykx_oycWHs38n=s900-c-k-c0x00ffffff-no-rj",
+        "link": "posts/post1.html"
+    },
+    {
+        "name": "سارة محمود",
+        "image": "https://via.placeholder.com/100",
+        "link": "sara.html"
+    },
+    {
+        "name": "فاطمة الزهراء",
+        "image": "https://via.placeholder.com/100",
+        "link": "fatima.html"
+    }
+]
