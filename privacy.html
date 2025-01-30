@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سياسة خصوصية تطبيق ترجمة الإيزيدية</title>
+    <title>Policy and Privacy</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,27 +65,97 @@
         .btn:hover {
             background-color: #45a049;
         }
+        .language-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .language-buttons button {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .language-buttons button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
+    <div class="language-buttons">
+        <button onclick="changeLanguage('ar')">العربية</button>
+        <button onclick="changeLanguage('en')">English</button>
+        <button onclick="changeLanguage('ku')">کوردی</button>
+        <button onclick="changeLanguage('ez')">ئێزیدی</button>
+    </div>
+
     <div class="container">
-        <h1>سياسة خصوصية تطبيق ترجمة الإيزيدية</h1>
-        <p>تطبيق ترجمة الإيزيدية يحرص على حماية خصوصية المستخدمين ويعمل وفق سياسة واضحة لضمان أمان البيانات. البيانات القديمة التي تم جمعها من قبل التطبيق محفوظة بشكل آمن ولا يمكن الوصول إليها أو التحكم فيها بشكل غير قانوني.</p>
-        <p>يتم تطبيق إجراءات أمنية صارمة لحماية هذه البيانات من أي اختراقات أو استخدام غير مصرح به. يشترط التطبيق على المستخدمين الالتزام بشروط الأمان المحددة، والتي تشمل عدم مشاركة البيانات الشخصية مع أطراف خارجية دون موافقة، واستخدام التطبيق فقط للأغراض المشروعة.</p>
+        <h1 id="title">سياسة خصوصية تطبيق ترجمة الإيزيدية</h1>
+        <p id="paragraph1">تطبيق ترجمة الإيزيدية يحرص على حماية خصوصية المستخدمين ويعمل وفق سياسة واضحة لضمان أمان البيانات. البيانات القديمة التي تم جمعها من قبل التطبيق محفوظة بشكل آمن ولا يمكن الوصول إليها أو التحكم فيها بشكل غير قانوني.</p>
+        <p id="paragraph2">يتم تطبيق إجراءات أمنية صارمة لحماية هذه البيانات من أي اختراقات أو استخدام غير مصرح به. يشترط التطبيق على المستخدمين الالتزام بشروط الأمان المحددة، والتي تشمل عدم مشاركة البيانات الشخصية مع أطراف خارجية دون موافقة، واستخدام التطبيق فقط للأغراض المشروعة.</p>
         <div class="security-info">
-            <h2>شروط الأمان</h2>
-            <p>يتم تشفير البيانات أثناء نقلها لضمان عدم اعتراضها، كما يتم إعلام المستخدمين بشكل واضح عن كيفية استخدام بياناتهم. التطبيق يضمن الشفافية في التعامل مع البيانات، ويوفر للمستخدمين القدرة على حذف بياناتهم إذا رغبوا في ذلك.</p>
-     
-للتواصل: ezidicode@gmail.com
-   </div>
-        <button class="btn" onclick="acceptPolicy()">موافق على السياسة</button>
+            <h2 id="security-title">شروط الأمان</h2>
+            <p id="security-paragraph">يتم تشفير البيانات أثناء نقلها لضمان عدم اعتراضها، كما يتم إعلام المستخدمين بشكل واضح عن كيفية استخدام بياناتهم. التطبيق يضمن الشفافية في التعامل مع البيانات، ويوفر للمستخدمين القدرة على حذف بياناتهم إذا رغبوا في ذلك.</p>
+            <p id="contact-info">للتواصل: ezidicode@gmail.com</p>
+        </div>
+        <button class="btn" onclick="acceptPolicy()" id="accept-button">موافق على السياسة</button>
     </div>
 
     <script>
+        const translations = {
+            ar: {
+                title: "سياسة خصوصية تطبيق ترجمة الإيزيدية",
+                paragraph1: "تطبيق ترجمة الإيزيدية يحرص على حماية خصوصية المستخدمين ويعمل وفق سياسة واضحة لضمان أمان البيانات. البيانات القديمة التي تم جمعها من قبل التطبيق محفوظة بشكل آمن ولا يمكن الوصول إليها أو التحكم فيها بشكل غير قانوني.",
+                paragraph2: "يتم تطبيق إجراءات أمنية صارمة لحماية هذه البيانات من أي اختراقات أو استخدام غير مصرح به. يشترط التطبيق على المستخدمين الالتزام بشروط الأمان المحددة، والتي تشمل عدم مشاركة البيانات الشخصية مع أطراف خارجية دون موافقة، واستخدام التطبيق فقط للأغراض المشروعة.",
+                securityTitle: "شروط الأمان",
+                securityParagraph: "يتم تشفير البيانات أثناء نقلها لضمان عدم اعتراضها، كما يتم إعلام المستخدمين بشكل واضح عن كيفية استخدام بياناتهم. التطبيق يضمن الشفافية في التعامل مع البيانات، ويوفر للمستخدمين القدرة على حذف بياناتهم إذا رغبوا في ذلك.",
+                contactInfo: "للتواصل: ezidicode@gmail.com",
+                acceptButton: "موافق على السياسة"
+            },
+            en: {
+                title: "Privacy Policy of the Ezidi Translation App",
+                paragraph1: "The Ezidi Translation App is committed to protecting user privacy and operates under a clear policy to ensure data security. Old data collected by the app is securely stored and cannot be accessed or controlled illegally.",
+                paragraph2: "Strict security measures are applied to protect this data from any breaches or unauthorized use. The app requires users to adhere to specific security terms, which include not sharing personal data with external parties without consent and using the app only for legitimate purposes.",
+                securityTitle: "Security Terms",
+                securityParagraph: "Data is encrypted during transmission to ensure it is not intercepted, and users are clearly informed about how their data is used. The app ensures transparency in handling data and provides users with the ability to delete their data if they wish.",
+                contactInfo: "Contact: ezidicode@gmail.com",
+                acceptButton: "Accept Policy"
+            },
+            ku: {
+                title: "Siyasetnameya Nihêniya Appê Wergera Êzîdî",
+                paragraph1: "Appê Wergera Êzîdî xwedî derheqê parastina nihêniya bikarhêneran e û bi siyasetekî zelal dixebite da ku ewlehiya daneyan peyda bike. Daneyên kevin yên ku ji hêla appê hatine berhevkirin bi ewle têne parastin û nikarin bi awayekî neqanûnî werin gihîştin an kontrol kirin.",
+                paragraph2: "Tedbîrên ewlehiyê yên zexm têne sepandin da ku vê daneyê ji her têkçûn an bikaranîna neqanûnî biparêze. Appê ji bikarhêneran re hewce dike ku li gorî mercên ewlehiyê yên taybetî tevbigere, ku di nav de daneyên şexsî bi partiyên derveyî re parve nekin bêyî razîbûnê û tenê ji bo armancên qanûnî appê bikar bînin.",
+                securityTitle: "Mercên Ewlehiyê",
+                securityParagraph: "Daney di dema ragihandinê de têne şîfrekirin da ku pêşî li girtina wan were girtin, û bikarhêner bi awayekî zelal têne agahdar kirin ka çawa daneyên wan têne bikar anîn. Appê di muameleya daneyan de şeffafiyê peyda dike û ji bikarhêneran re derfetê dide ku daneyên xwe jê bibin eger dixwazin.",
+                contactInfo: "Têkilî: ezidicode@gmail.com",
+                acceptButton: "Qebûlkirina Siyasetê"
+            },
+            ez: {
+                title: "Siyaseta Nihêniya ya Appê Wergera Êzîdî",
+                paragraph1: "Appê Wergera Êzîdî xwedî derheqê parastina nihêniya bikarhêneran e û bi siyasetekî zelal dixebite da ku ewlehiya daneyan peyda bike. Daneyên kevin yên ku ji hêla appê hatine berhevkirin bi ewle têne parastin û nikarin bi awayekî neqanûnî werin gihîştin an kontrol kirin.",
+                paragraph2: "Tedbîrên ewlehiyê yên zexm têne sepandin da ku vê daneyê ji her têkçûn an bikaranîna neqanûnî biparêze. Appê ji bikarhêneran re hewce dike ku li gorî mercên ewlehiyê yên taybetî tevbigere, ku di nav de daneyên şexsî bi partiyên derveyî re parve nekin bêyî razîbûnê û tenê ji bo armancên qanûnî appê bikar bînin.",
+                securityTitle: "Mercên Ewlehiyê",
+                securityParagraph: "Daney di dema ragihandinê de têne şîfrekirin da ku pêşî li girtina wan were girtin, û bikarhêner bi awayekî zelal têne agahdar kirin ka çawa daneyên wan têne bikar anîn. Appê di muameleya daneyan de şeffafiyê peyda dike û ji bikarhêneran re derfetê dide ku daneyên xwe jê bibin eger dixwazin.",
+                contactInfo: "Têkilî: ezidicode@gmail.com",
+                acceptButton: "Qebûlkirina Siyasetê"
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.getElementById("title").innerText = translations[lang].title;
+            document.getElementById("paragraph1").innerText = translations[lang].paragraph1;
+            document.getElementById("paragraph2").innerText = translations[lang].paragraph2;
+            document.getElementById("security-title").innerText = translations[lang].securityTitle;
+            document.getElementById("security-paragraph").innerText = translations[lang].securityParagraph;
+            document.getElementById("contact-info").innerText = translations[lang].contactInfo;
+            document.getElementById("accept-button").innerText = translations[lang].acceptButton;
+        }
+
         function acceptPolicy() {
             alert("شكرًا لموافقتك على سياسة الخصوصية!");
         }
     </script>
 </body>
 </html>
-
