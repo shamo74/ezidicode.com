@@ -1,1 +1,238 @@
-تعليم اللغة الألمانية
+ <!DOCTYPE html>
+<html lang="ar"dir="rtl">
+<head>
+       <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>تطبيق تعليم اللغات</title>
+<link rel="stylesheet" href="style-app-learn.css">
+</head>
+<body>
+  <div class="dashboard">
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo">تعليم اللغات</div>
+      <nav class="nav-menu">
+      	<button id="close-sidebar">إغلاق</button>
+        <ul>
+          <li class="active" data-target="arabic-section">
+ مستوى الاول 
+<span class="level-label">(240)</span>
+          </li>
+          <li data-target="german-section">
+مستوى الثاني      
+ <span class="level-label">(180)</span>
+          </li>
+           </li>
+          <li data-target="german1">
+            المانية <span class="level-label">(الماني)</span>
+          </li>
+           </li>
+          <li data-target="german-section">
+            المانية <span class="level-label">(الماني)</span>
+          </li>
+                </li>
+          <li data-target="german-section">
+            المانية <span class="level-label">(الماني)</span>
+          </li>
+                </li>
+          <li data-target="german-section">
+            المانية <span class="level-label">(الماني)</span>
+          </li>
+                </li>
+          <li data-target="german-section">
+            امتحان <span class="level-label">(الماني)</span>
+          </li>
+          <li data-target="settings-section">
+            الإعدادات
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content">
+      <header class="header">
+        <!-- في RTL يظهر العنوان بحسب ترتيب المصدر -->
+        <div class="logo"><h1>تعليما زماني الماني</h1></div>
+        <button id="toggle-sidebar">☰</button>
+      </header>
+      
+      <!-- قسم اللغة العربية -->
+      <section id="arabic-section" class="content-section active">
+        <div class="card">
+          <h2>مستوى الاول</h2>
+          <ul>
+            <li>
+              <span>𐺁𐺀𐺒𐺨</span>
+                    <button class="play-btn" data-audio="arabic_hello.mp3">شنگالي</button>
+            
+                 <span>Hello</span>
+              <button class="play-btn" data-audio="arabic_hello.mp3">الماني</button>
+              
+            <li>
+              <span>مرحبا</span>
+              <button class="play-btn" data-audio="sounds/arabic_hello.mp3">تشغيل الصوت</button>
+            </li>
+            <li>
+              <span>مرحبا</span>
+              <button class="play-btn" data-audio="sounds/arabic_hello.mp3">تشغيل الصوت</button>
+            </li>
+            <li>
+              <span>مرحبا</span>
+              <button class="play-btn" data-audio="sounds/arabic_hello.mp3">تشغيل الصوت</button>
+            </li>
+            <li>
+            	
+            
+            	
+              <span>مساء الخير</span>
+              <button class="play-btn" data-audio="sounds/arabic_goodevening.mp3">تشغيل الصوت</button>
+            </li>
+            
+                <li>
+            	
+            
+            	
+              <span>مساء الخير</span>
+              <button class="play-btn" data-audio="sounds/arabic_goodevening.mp3">تشغيل الصوت</button>
+            </li>
+                <li>
+            	
+            
+            	
+              <span>مساء الخير</span>
+              <button class="play-btn" data-audio="sounds/arabic_goodevening.mp3">تشغيل الصوت</button>
+            </li>
+                <li>
+            	
+            
+            	
+              <span>مساء الخير</span>
+              <button class="play-btn" data-audio="sounds/arabic_goodevening.mp3">تشغيل الصوت</button>
+            </li>
+                <li>
+            	
+            
+            	
+              <span>مساء الخير</span>
+              <button class="play-btn" data-audio="sounds/arabic_goodevening.mp3">تشغيل الصوت</button>
+            </li>
+                <li>
+            	
+            
+            	
+              <span>Hello How are you</span>
+              <button class="play-btn" data-audio="sounds/arabic_goodevening.mp3">تشغيل الصوت</button>
+            </li>
+                <li>
+            	
+            
+            	
+              <span>Hello how ..... You[[</span>
+              <button class="play-btn" data-audio="sounds/arabic_goodevening.mp3">تشغيل الصوت</button>
+            </li>
+            
+            
+            
+          </ul>
+        </div>
+        <div class="card">
+          <h2>الأرقام</h2>
+          <ul>
+            <li>
+              <span>واحد</span>
+              <button class="play-btn" data-audio="sounds/arabic_one.mp3">تشغيل الصوت</button>
+            </li>
+            <li>
+              <span>اثنان</span>
+              <button class="play-btn" data-audio="sounds/arabic_two.mp3">تشغيل الصوت</button>
+            </li>
+          </ul>
+        </div>
+      </section>
+      
+      <!-- قسم اللغة المانية -->
+      <section id="german-section" class="content-section">
+        <div class="card">
+          <h2>التحيات</h2>
+          <ul>
+            <li>
+              <span>Hallo</span>
+              <button class="play-btn" data-audio="sounds/german_hallo.mp3">تشغيل الصوت</button>
+            </li>
+            <li>
+              <span>Guten Abend</span>
+              <button class="play-btn" data-audio="sounds/german_goodevening.mp3">تشغيل الصوت</button>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>الأرقام</h2>
+          <ul>
+            <li>
+              <span>eins</span>
+              <button class="play-btn" data-audio="sounds/german_one.mp3">تشغيل الصوت</button>
+            </li>
+            <li>
+              <span>zwei</span>
+              <button class="play-btn" data-audio="sounds/german_two.mp3">تشغيل الصوت</button>
+            </li>
+          </ul>
+          
+        </div>
+      </section>
+      
+      
+      <!-- قسم اللغة المانية -->
+      <section id="german1" class="content-section">
+        <div class="card">
+          <h2>التحيات</h2>
+          <ul>
+            <li>
+              <span>haaaa</span>
+              <button class="play-btn" data-audio="sounds/german_hallo.mp3">تشغيل الصوت</button>
+            </li>
+            <li>
+              <span>Guten Abend</span>
+              <button class="play-btn" data-audio="sounds/german_goodevening.mp3">تشغيل الصوت</button>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>الأرقام</h2>
+          <ul>
+            <li>
+              <span>eins</span>
+              <button class="play-btn" data-audio="sounds/german_one.mp3">تشغيل الصوت</button>
+            </li>
+            <li>
+              <span>zwei</span>
+              <button class="play-btn" data-audio="sounds/german_two.mp3">تشغيل الصوت</button>
+            </li>
+          </ul>
+        </div>
+      </section>
+      
+      <!-- قسم الإعدادات -->
+      <section id="settings-section" class="content-section">
+        <div class="card">
+          <h2>الإعدادات</h2>
+          <p>يمكنك تعديل إعدادات التطبيق هنا.</p>
+          <!-- متحكم تغيير حجم الخط -->
+          <div style="margin-top:15px;">
+            <label for="font-size-slider">حجم الخط: <span id="font-size-value">16px</span></label>
+            <input type="range" id="font-size-slider" min="12" max="30" value="16">
+          </div>
+          <!-- خانة اختيار لتفعيل الوضع الليلي -->
+          <div style="margin-top:15px;">
+            <label for="toggle-dark-mode">
+              <input type="checkbox" id="toggle-dark-mode"> تفعيل الوضع الليلي
+            </label>
+          </div> 
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="scripts-app-learn.js"></script>
+  
+</body>
+</html>  
