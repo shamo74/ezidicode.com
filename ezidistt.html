@@ -159,7 +159,7 @@ button, a, input {
 </head>
 <body>
     <div class="container">
-        <h1>دنگ بگا نڤيسان</h1>
+        <h1>دنگ بگا نڤيسان ب شنگالي</h1>
    
         <div class="output" id="output">ب پيڤا</div>
              <button class="mic-btn" id="startBtn" title="دنگي طا ادگم">
@@ -175,7 +175,7 @@ button, a, input {
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
             </svg>
-نسخ النص
+نسخگرن
         </button>
         
         
@@ -254,8 +254,8 @@ button, a, input {
 
             recognition.onend = function() {
                 startBtn.classList.remove('active');
-                if (!output.textContent || output.textContent === 'ب بيفا...') {
-                    output.textContent = 'اضغط على الميكروفون للبدء';
+                if (!output.textContent || output.textContent === 'ب پيڤا...') {
+                    output.textContent = 'تليا خوا ال مگرفوني بدا';
                 }
                 // إعادة تشغيل التعرف إذا لزم الأمر
                 if (startBtn.classList.contains('active')) {
@@ -281,7 +281,7 @@ button, a, input {
                 if (textToCopy && textToCopy !== 'دنكي طا ادگم...' && textToCopy !== 'اضغط على الميكروفون للبدء') {
                     navigator.clipboard.writeText(textToCopy).then(() => {
                         copyBtn.style.background = 'linear-gradient(45deg, #2eb648, #268f3c)';
-                        copyBtn.textContent = 'تم نسخ!';
+                        copyBtn.textContent = 'هاتا نسخگرن!';
                         setTimeout(() => {
                             copyBtn.style.background = 'linear-gradient(45deg, #34c759, #2aa147)';
                             copyBtn.innerHTML = `
@@ -289,11 +289,11 @@ button, a, input {
                                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                                 </svg>
-                                نسخ النص
+                                نسخگرن
                             `;
                         }, 1000);
                     }).catch(err => {
-                        output.textContent = 'لم تنسخ' + err;
+                        output.textContent = 'نا هاتا نسخگرن' + err;
                     });
                 }
             });
