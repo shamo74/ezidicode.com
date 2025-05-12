@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تطبيق داشبورد هاتف متطور</title>
+    <title>ezidicode</title>
     <style>
         * {
             margin: 0;
@@ -168,30 +168,44 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.95);
+            background: #EEE6FF;
             backdrop-filter: blur(8px);
             border-radius: 12px;
-            width: 110px;
-            aspect-ratio: 1 / 1;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            width: 120px;
+            aspect-ratio: 1 / 0;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
             transform: scale(1.03);
         }
 
-        .card img {
-            width: 30%;
-            height: 30px;
-            object-fit: cover;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+        .card-content {
+            flex: 1;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
-        .card-content {
-            padding: 8px;
+        .card-content .icon-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 8px;
+        }
+
+        .card-content .icon-container svg {
+            width: 30px;
+            height: 30px;
+            fill: none;
+            stroke: #4f46e5;
+            stroke-width: 1.5;
         }
 
         .card-content h3 {
@@ -287,8 +301,10 @@
             <div class="cards-section">
                 <div class="card-row">
                     <div class="card">
-                        <img src="https://static-00.iconduck.com/assets.00/translate-icon-1024x1024-x29p7ggx.png" alt="مشروع 1">
                         <div class="card-content">
+                            <div class="icon-container">
+                                <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm2 4h12v2H6V8zm0 4h10v2H6v-2zm0 4h8v2H6v-2z"></path></svg>
+                            </div>
                             <h3>مترجم</h3>
                             <p>إدارة مشاريعك.</p>
                             <a href="information.html" class="action-btn">
@@ -298,8 +314,10 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/3c/55/a3/3c55a370-4adc-2070-d54e-a838edf909a3/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg" alt="تحليل 2">
                         <div class="card-content">
+                            <div class="icon-container">
+                                <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-10 10 10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2zm0 16a6 6 0 01-6-6 6 6 0 016-6 6 6 0 016 6 6 6 0 01-6 6z"></path></svg>
+                            </div>
                             <h3>ترجمة صوتية</h3>
                             <p>رؤى من بياناتك.</p>
                             <a href="analysis.html" class="action-btn">
@@ -309,9 +327,11 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://static-00.iconduck.com/assets.00/text-formatting-text-to-speech-1-speech-automated-translate-language-voice-technology-icon-2048x2034-ep3ac57b.png" alt="مهام 3">
                         <div class="card-content">
-                            <h3>محول نص الى كلام</h3>
+                            <div class="icon-container">
+                                <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+                            </div>
+                            <h3>محول نص إلى كلام</h3>
                             <p>إدارة مهامك.</p>
                             <a href="tasks.html" class="action-btn">
                                 <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 100 16 8 8 0 000-16z"></path></svg>
@@ -322,8 +342,10 @@
                 </div>
                 <div class="card-row">
                     <div class="card">
-                        <img src="https://static.vecteezy.com/system/resources/previews/021/878/508/non_2x/writing-pen-icon-symbol-in-white-background-illustration-of-the-sign-pencil-symbol-image-eps-10-vector.jpg" alt="دعم 4">
                         <div class="card-content">
+                            <div class="icon-container">
+                                <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"></path></svg>
+                            </div>
                             <h3>خطوط الكتابة</h3>
                             <p>دعم فوري.</p>
                             <a href="support.html" class="action-btn">
@@ -333,8 +355,10 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://via.placeholder.com/110x60?text=إحصائيات+5" alt="إحصائيات 5">
                         <div class="card-content">
+                            <div class="icon-container">
+                                <svg viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path></svg>
+                            </div>
                             <h3>إحصائيات</h3>
                             <p>تحليل الأداء.</p>
                             <a href="stats.html" class="action-btn">
@@ -344,8 +368,10 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://via.placeholder.com/110x60?text=تخطيط+6" alt="تخطيط 6">
                         <div class="card-content">
+                            <div class="icon-container">
+                                <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path></svg>
+                            </div>
                             <h3>تخطيط متقدم</h3>
                             <p>خطط بذكاء.</p>
                             <a href="planning.html" class="action-btn">
@@ -357,8 +383,10 @@
                 </div>
                 <div class="card-row">
                     <div class="card">
-                        <img src="https://via.placeholder.com/110x60?text=فريق+7" alt="فريق 7">
                         <div class="card-content">
+                            <div class="icon-container">
+                                <svg viewBox="0 0 24 24"><path d="M16 11a3 3 0 100-6 3 3 0 000 6zm-8 0a3 3 0 100-6 3 3 0 000 6zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05.02.01.05.03.08.04 2.29.86 3.89 2.81 3.89 5.41V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>
+                            </div>
                             <h3>إدارة الفريق</h3>
                             <p>تنسيق الفرق.</p>
                             <a href="team.html" class="action-btn">
@@ -368,8 +396,10 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://via.placeholder.com/110x60?text=ميزانية+8" alt="ميزانية 8">
                         <div class="card-content">
+                            <div class="icon-container">
+                                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H4V4h16v16zM6 6h5v5H6V6zm7 0h5v5h-5V6zm-7 7h5v5H6v-5zm7 0h5v5h-5v-5z"></path></svg>
+                            </div>
                             <h3>إدارة الميزانية</h3>
                             <p>تتبع المصروفات.</p>
                             <a href="budget.html" class="action-btn">
