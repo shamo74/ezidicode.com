@@ -1,205 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ezidicode | Information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>tts</title>
     <style>
-        @font-face {
-            font-family: 'CustomArabicFont';
-            src: url('CustomArabicFont.ttf') format('truetype');
-        }
-
         * {
-            font-family: 'CustomArabicFont', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
         body {
-            
-            color: #333;
-            font-size: 16px;
-            overflow-x: hidden;
+            background: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            color: #1e293b;
+            touch-action: manipulation;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 390px;
+            height: 100vh;
+            max-height: 844px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
 
         .top-bar {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(5px);
-            padding: 15px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        .menu-icon {
+        .top-bar h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
             font-size: 24px;
             cursor: pointer;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-            color: #0072ff;
-        }
-
-        .language-select select {
-            font-size: 14px;
-            padding: 5px;
-            border-radius: 20px;
-            border: none;
-            background: #0072ff;
-            color: white;
+            color: #4f46e5;
             outline: none;
-            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .sidebar-menu {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 300px;
-            height: 100%;
-            background: #001f3f;
-            color: white;
-            padding: 20px;
-            transition: left 0.1s ease-in-out;
-            z-index: 1000;
-            box-shadow: 4px 0 6px rgba(0, 0, 0, 0.2);
+        .content {
+            flex: 1;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
         }
 
-        .sidebar-menu.active {
-            left: 0;
+        .content h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1e293b;
         }
 
-        .sidebar-menu a {
-            display: block;
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
+        .content p {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.5;
             margin-bottom: 15px;
-            border-radius: 5px;
-            transition: background 0.3s ease;
         }
 
-        .sidebar-menu a:hover {
-            background: #0072ff;
+        .content img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
         }
 
-        .close-btn {
-            font-size: 18px;
-            background-color: #ff4c4c;
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px;
+            background: #4f46e5;
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            margin-bottom: 20px;
+            font-size: 14px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .grid-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            padding: 100px 20px 20px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .action-btn svg {
+            width: 18px;
+            height: 18px;
+            margin-left: 8px;
+            fill: white;
         }
 
-        .grid-item {
-            background: white;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .action-btn:hover {
+            background: #4338ca;
+            transform: scale(1.05);
         }
 
-        .grid-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .grid-item img {
-            max-width: 80px;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .grid-item:hover img {
-            transform: scale(1.2);
-        }
-
-        .grid-item span {
-            font-size: 16px;
-            font-weight: bold;
+        .action-btn:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
 <body>
-
-    <!-- Top bar -->
-    <header class="top-bar">
-        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-        <div class="logo">ezidicode.com</div>
-        <div class="language-select">
-            <select id="language-select" onchange="changeLanguage()">
-                <option value="index.html">English</option>
-                <option value="index-ar.html">العربية</option>
-                <option value="index-ku.html">كوردى</option>
-                <option value="index-yez.html">𐺩𐺏𐺨𐺋𐺨</option>
-            </select>
+    <div class="app-container">
+        <div class="top-bar">
+            <h1>TTS</h1>
+            <a href="index.html" class="back-btn">←</a>
         </div>
-    </header>
 
-    <!-- Sidebar menu -->
-    <div class="sidebar-menu" id="sidebar-menu">
-        <button class="close-btn" onclick="toggleMenu()">✕</button>
-        <a href="index.html">Home</a>
-        <a href="Services.html">Services</a>
-        <a href="information.html">Information</a>
-        <a href="Contactus.html">Contact Us</a>
+        <div class="content">
+            <img src="https://via.placeholder.com/360x150?text=مشروع+رائد" alt="مشروع رائد">
+            <h2>تفاصيل المشروع</h2>
+            <p>مشروع رائد يوفر أدوات متقدمة لإدارة المشاريع بكفاءة. يمكنك تتبع التقدم، تحديد المهام، وتحليل الأداء في الوقت الفعلي.</p>
+            <p>استفد من واجهة سهلة الاستخدام وإمكانيات تخصيص مرنة لتناسب احتياجات فريقك.</p>
+            <a href="#" class="action-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 100 16 8 8 0 000-16z"></path></svg>
+                بدء المشروع
+            </a>
+        </div>
     </div>
-
-    <!-- Service grid section -->
-    <br/><br/><br/>
-<style>
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-    iframe {
-      width: 100%;
-      height: 90%;
-      border: none;
-    }
-  </style>
-</head>
-<body>
-  <iframe src="https://ezidicode.blogspot.com/?m=1/"></iframe>.
-        
-        </div>
-    </section>
-
-    <script>
-        function toggleMenu() {
-            const sidebarMenu = document.getElementById('sidebar-menu');
-            sidebarMenu.classList.toggle('active');
-        }
-
-        function changeLanguage() {
-            const language = document.getElementById('language-select').value;
-            window.location.href = language;
-        }
-    </script>
-
 </body>
 </html>
