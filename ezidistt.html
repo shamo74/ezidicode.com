@@ -1,75 +1,96 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>تطبيق التعرف على الصوت</title>
     <style>
-    	* {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-focus-ring-color: transparent;
-  outline: none;
-}
-button, a, input {
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-focus-ring-color: transparent;
-}
-        @font-face {
-            font-family: 'Yezidi';
-            src: url('Yezidi.ttf') format('truetype');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-focus-ring-color: transparent;
+            outline: none;
         }
 
-        * {
-            font-family: 'Yezidi', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        button, a, input {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-focus-ring-color: transparent;
         }
 
         body {
-            
-            background: linear-gradient(135deg, white, );
+            background: #f1f5f9;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            color: #333;
-            direction: rtl;
+            overflow: hidden;
+            color: #1e293b;
+            touch-action: manipulation;
         }
 
-        .container {
-            max-width: 700px;
-            width: 90%;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.95);
+        .app-container {
+            width: 100%;
+            max-width: 390px;
+            height: 100vh;
+            max-height: 844px;
+            background: #ffffff;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            animation: fadeIn 0.5s ease-in-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        h1 {
-            font-size: 3.2em;
-            color: #1a73e8;
+        .top-bar h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #4f46e5;
+        }
+
+        .content {
+            flex: 1;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content h2 {
+            font-size: 20px;
+            font-weight: 600;
             margin-bottom: 10px;
-            font-weight: 700;
+            color: #1e293b;
         }
 
         .mic-btn {
             background: linear-gradient(45deg, #1a73e8, #CD00FF);
             color: white;
-            border: none; 
+            border: none;
             padding: 15px;
             border-radius: 50%;
             width: 70px;
@@ -80,12 +101,12 @@ button, a, input {
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
-            margin: 40px auto;
+            margin: 20px auto;
         }
 
         .mic-btn:hover {
             transform: scale(1.3);
-            box-shadow: 0 10px 1px rgba(26, 115, 232, 0.4);
+            box-shadow: 0 10px 15px rgba(26, 115, 232, 0.4);
         }
 
         .mic-btn.active::after {
@@ -94,7 +115,7 @@ button, a, input {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 3px solid rgba(255, 255, 255, 0.5);
             animation: pulse 1.5s infinite;
         }
 
@@ -109,7 +130,7 @@ button, a, input {
             background: #f8fafc;
             border-radius: 15px;
             min-height: 120px;
-            font-size: 1.5em;
+            font-size: 1.2em;
             color: #333;
             display: flex;
             align-items: center;
@@ -117,15 +138,16 @@ button, a, input {
             text-align: center;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
             word-wrap: break-word;
+            width: 100%;
         }
 
         .copy-btn {
             background: linear-gradient(45deg, #34c759, #2aa147);
             color: white;
             border: none;
-            padding: 1px 25px;
+            padding: 10px 25px;
             border-radius: 12px;
-            font-size: 1.5em;
+            font-size: 1em;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
@@ -138,170 +160,153 @@ button, a, input {
             background: linear-gradient(45deg, #2eb648, #268f3c);
         }
 
-        .loading {
-            color: #ff5722;
-            font-size: 1.5em;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0.5; }
-        }
-
-        /* تصميم متجاوب */
         @media (max-width: 500px) {
-            .container { padding: 20px; }
-            h1 { font-size: 1.8em; }
             .mic-btn { width: 60px; height: 60px; }
-            .output { font-size: 1.7em; }
+            .output { font-size: 1em; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>دنگ بگا نڤيسان ب شنگالي</h1>
-   
-        <div class="output" id="output">ب پيڤا</div>
-             <button class="mic-btn" id="startBtn" title="دنگي طا ادگم">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
-                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                <line x1="12" y1="19" x2="12" y2="23"></line>
-                <line x1="8" y1="23" x2="16" y2="23"></line>
-            </svg> 
-        </button>
-        <button class="copy-btn" id="copyBtn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-            </svg>
-نسخگرن
-        </button>
-        
-        
+    <div class="app-container">
+        <div class="top-bar">
+            <h1>دنگ بگا نڤيسان ب شنگالي</h1>
+            <a href="index.html" class="back-btn">←</a>
+        </div>
+
+        <div class="content">
+            <h2>التعرف على الصوت</h2>
+            <div class="output" id="output">ب піڤа</div>
+            <button class="mic-btn" id="startBtn" title="دنگي طا ادگم">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+            </button>
+            <button class="copy-btn" id="copyBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                نسخگرن
+            </button>
+        </div>
     </div>
-    
 
     <script>
-    // تحميل العبارات من ملف JSON
-    fetch('words.json')
-        .then(response => response.json())
-        .then(data => {
-            const phrases = data.phrases;
-            const startBtn = document.getElementById('startBtn');
-            const output = document.getElementById('output');
-            const copyBtn = document.getElementById('copyBtn');
+        // تحميل العبارات من ملف JSON
+        fetch('words.json')
+            .then(response => response.json())
+            .then(data => {
+                const phrases = data.phrases;
+                const startBtn = document.getElementById('startBtn');
+                const output = document.getElementById('output');
+                const copyBtn = document.getElementById('copyBtn');
 
-            // إعداد التعرف على الصوت
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                output.textContent = "المتصفح لا يدعم التعرف على الصوت.";
-                return;
-            }
+                // إعداد التعرف على الصوت
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SpeechRecognition) {
+                    output.textContent = "المتصفح لا يدعم التعرف على الصوت.";
+                    return;
+                }
 
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'ar-EG';
-            recognition.interimResults = true; // تمكين النص المؤقت
-            recognition.continuous = false; // إيقاف التعرف المستمر لتجنب التكرار
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'ar-EG';
+                recognition.interimResults = true;
+                recognition.continuous = false;
 
-            let finalTranscript = '';
-            let lastInterim = ''; // لتتبع النص المؤقت السابق
+                let finalTranscript = '';
+                let lastInterim = '';
 
-            recognition.onresult = function(event) {
-                let interimTranscript = '';
-                let newFinal = '';
+                recognition.onresult = function(event) {
+                    let interimTranscript = '';
+                    let newFinal = '';
 
-                // معالجة النتائج
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
-                    if (event.results[i].isFinal) {
-                        newFinal = transcript; // النص النهائي
-                    } else {
-                        interimTranscript = transcript; // النص المؤقت
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) {
+                            newFinal = transcript;
+                        } else {
+                            interimTranscript = transcript;
+                        }
                     }
-                }
 
-                // منع تكرار النص المؤقت
-                if (interimTranscript && interimTranscript !== lastInterim) {
-                    lastInterim = interimTranscript;
-                } else {
-                    interimTranscript = '';
-                }
+                    if (interimTranscript && interimTranscript !== lastInterim) {
+                        lastInterim = interimTranscript;
+                    } else {
+                        interimTranscript = '';
+                    }
 
-                // تحديث النص النهائي فقط إذا كان هناك نص نهائي جديد
-                if (newFinal) {
-                    finalTranscript += newFinal + ' ';
-                    lastInterim = ''; // إعادة تعيين النص المؤقت بعد النص النهائي
-                }
+                    if (newFinal) {
+                        finalTranscript += newFinal + ' ';
+                        lastInterim = '';
+                    }
 
-                // دمج النص النهائي والمؤقت
-                let resultText = finalTranscript + interimTranscript;
+                    let resultText = finalTranscript + interimTranscript;
 
-                // استبدال العبارات
-                phrases.forEach(phrase => {
-                    const regex = new RegExp(phrase.original, 'gi');
-                    resultText = resultText.replace(regex, phrase.translation);
+                    phrases.forEach(phrase => {
+                        const regex = new RegExp(phrase.original, 'gi');
+                        resultText = resultText.replace(regex, phrase.translation);
+                    });
+
+                    output.textContent = resultText || 'دنگي خوا بلند بگا..';
+                };
+
+                recognition.onerror = function(event) {
+                    output.textContent = `خطأ: ${event.error}`;
+                    startBtn.classList.remove('active');
+                };
+
+                recognition.onend = function() {
+                    startBtn.classList.remove('active');
+                    if (!output.textContent || output.textContent === 'ب піڤا...') {
+                        output.textContent = 'تليا خوا ال مگرفوني بدا';
+                    }
+                    if (startBtn.classList.contains('active')) {
+                        recognition.start();
+                    }
+                };
+
+                startBtn.addEventListener('click', () => {
+                    if (startBtn.classList.contains('active')) {
+                        recognition.stop();
+                        startBtn.classList.remove('active');
+                    } else {
+                        finalTranscript = '';
+                        lastInterim = '';
+                        output.textContent = 'دنكي طا دگم.';
+                        startBtn.classList.add('active');
+                        recognition.start();
+                    }
                 });
 
-                // تحديث العرض
-                output.textContent = resultText || 'دنگي خوا بلند بگا..';
-            };
-
-            recognition.onerror = function(event) {
-                output.textContent = `خطأ: ${event.error}`;
-                startBtn.classList.remove('active');
-            };
-
-            recognition.onend = function() {
-                startBtn.classList.remove('active');
-                if (!output.textContent || output.textContent === 'ب پيڤا...') {
-                    output.textContent = 'تليا خوا ال مگرفوني بدا';
-                }
-                // إعادة تشغيل التعرف إذا لزم الأمر
-                if (startBtn.classList.contains('active')) {
-                    recognition.start();
-                }
-            };
-
-            startBtn.addEventListener('click', () => {
-                if (startBtn.classList.contains('active')) {
-                    recognition.stop();
-                    startBtn.classList.remove('active');
-                } else {
-                    finalTranscript = ''; // إعادة تعيين النص النهائي
-                    lastInterim = ''; // إعادة تعيين النص المؤقت
-                    output.textContent = 'دنكي طا دگم.';
-                    startBtn.classList.add('active');
-                    recognition.start();
-                }
+                copyBtn.addEventListener('click', () => {
+                    const textToCopy = output.textContent;
+                    if (textToCopy && textToCopy !== 'دنكي طا ادگم...' && textToCopy !== 'اضغط على الميكروفون للبدء') {
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                            copyBtn.style.background = 'linear-gradient(45deg, #2eb648, #268f3c)';
+                            copyBtn.textContent = 'هاتا نسخگرن!';
+                            setTimeout(() => {
+                                copyBtn.style.background = 'linear-gradient(45deg, #34c759, #2aa147)';
+                                copyBtn.innerHTML = `
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                    نسخگرن
+                                `;
+                            }, 1000);
+                        }).catch(err => {
+                            output.textContent = 'نا هاتا نسخگرن' + err;
+                        });
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('خطأ في تحميل البيانات:', error);
+                document.getElementById('output').textContent = 'خطأ في تحميل البيانات.';
             });
-
-            copyBtn.addEventListener('click', () => {
-                const textToCopy = output.textContent;
-                if (textToCopy && textToCopy !== 'دنكي طا ادگم...' && textToCopy !== 'اضغط على الميكروفون للبدء') {
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        copyBtn.style.background = 'linear-gradient(45deg, #2eb648, #268f3c)';
-                        copyBtn.textContent = 'هاتا نسخگرن!';
-                        setTimeout(() => {
-                            copyBtn.style.background = 'linear-gradient(45deg, #34c759, #2aa147)';
-                            copyBtn.innerHTML = `
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                </svg>
-                                نسخگرن
-                            `;
-                        }, 1000);
-                    }).catch(err => {
-                        output.textContent = 'نا هاتا نسخگرن' + err;
-                    });
-                }
-            });
-        })
-        .catch(error => {
-            console.error('خطأ في تحميل البيانات:', error);
-            document.getElementById('output').textContent = 'خطأ في تحميل البيانات.';
-        });
-</script>
+    </script>
 </body>
 </html>
