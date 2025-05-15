@@ -250,7 +250,7 @@
                         resultText = resultText.replace(regex, phrase.translation);
                     });
 
-                    output.textContent = resultText || 'دنگي خوا بلند بگا..';
+                    output.textContent = resultText || 'ارفع صوتك';
                 };
 
                 recognition.onerror = function(event) {
@@ -260,8 +260,8 @@
 
                 recognition.onend = function() {
                     startBtn.classList.remove('active');
-                    if (!output.textContent || output.textContent === 'ب піڤا...') {
-                        output.textContent = 'تليا خوا ال مگرفوني بدا';
+                    if (!output.textContent || output.textContent === 'سماع الصوت') {
+                        output.textContent = 'اضغط لمكرفون';
                     }
                     if (startBtn.classList.contains('active')) {
                         recognition.start();
@@ -275,7 +275,7 @@
                     } else {
                         finalTranscript = '';
                         lastInterim = '';
-                        output.textContent = 'دنكي طا دگم.';
+                        output.textContent = 'يسمع...';
                         startBtn.classList.add('active');
                         recognition.start();
                     }
@@ -283,10 +283,10 @@
 
                 copyBtn.addEventListener('click', () => {
                     const textToCopy = output.textContent;
-                    if (textToCopy && textToCopy !== 'دنكي طا ادگم...' && textToCopy !== 'اضغط على الميكروفون للبدء') {
+                    if (textToCopy && textToCopy !== 'يسمع صوت...' && textToCopy !== 'اضغط على الميكروفون للبدء') {
                         navigator.clipboard.writeText(textToCopy).then(() => {
                             copyBtn.style.background = 'linear-gradient(45deg, #2eb648, #268f3c)';
-                            copyBtn.textContent = 'هاتا نسخگرن!';
+                            copyBtn.textContent = 'تم نسخ!';
                             setTimeout(() => {
                                 copyBtn.style.background = 'linear-gradient(45deg, #34c759, #2aa147)';
                                 copyBtn.innerHTML = `
@@ -294,11 +294,11 @@
                                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                                     </svg>
-                                    نسخگرن
+                                    نسخ النص
                                 `;
                             }, 1000);
                         }).catch(err => {
-                            output.textContent = 'نا هاتا نسخگرن' + err;
+                            output.textContent = 'لم تنسخ' + err;
                         });
                     }
                 });
