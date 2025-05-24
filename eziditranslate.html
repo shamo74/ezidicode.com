@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ezidi Translate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+  	       /* تحميل خط مشابه لـ SF Pro */
+        @font-face {
+            font-family: 'Yezidi';
+            src: url('Yezidi.ttf') format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Yezidi', -apple-system, BlinkMacSystemFont, 'SF Pro', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+    body {
+      background: linear-gradient(to bottom, #00D5FF, #00D8FF);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+    }
+    .container {
+      max-width: 95%;
+      width: 600px;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      margin: 1rem;
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      resize: none;
+      font-size: 1.1rem;
+      direction: rtl;
+      font-family: 'Arial', sans-serif;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #4f46e5;
+    }
+    .error {
+      color: #dc2626;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      display: none;
+      text-align: center;
+    }
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem;
+      }
+      textarea {
+        font-size: 1rem;
+        min-height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-2xl font-bold text-center mb-6">Translator</h1>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-semibold mb-2">اللغة العربية (Arabic)</label>
+      <textarea id="arabicInput" placeholder="أدخل النص بالعربية هنا..."></textarea>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-semibold mb-2">اللغة الإيزيدية (Shingali)</label>
+      <textarea id="kurdishOutput" readonly placeholder="الترجمة ستظهر هنا..."></textarea>
+    </div>
+    <p id="error" class="error">حدث خطأ أثناء الترجمة. تأكد من النص أو المفتاح.</p>
+  </div>
+  <script>
+    const API_KEY = "AIzaSyBFvJQp99Yw2gtqupq7ITlZ-_HMi_talRQ";
+    const URL = "https://translation.googleapis.com/language/translate/v2";
+
+    // Kurdish Latin to Arabic script mapping
+    const kurdishToArabicMap = {
+      'a': 'ا', 'b': 'ب', 'c': 'ج', 'ç': 'چ', 'd': 'د', 'e': 'ا', 'ê': 'ي',
+      'f': 'ف', 'g': 'گ', 'h': 'ه', 'i': 'ە', 'î': 'ي', 'j': 'ژ', 'k': 'ك',
+      'l': 'ل', 'ł': 'ل', 'm': 'م', 'n': 'ن', 'o': 'و', 'p': 'پ', 'q': 'ق',
+      'r': 'ر', 'ř': 'ر', 's': 'س', 'ş': 'ش', 't': 'ط', 'u': 'و', 'û': 'وو',
+      'v': 'ف', 'w': 'و', 'x': 'خ', 'y': 'ي', 'z': 'ز', ' ': ' ', '.': '.',
+      ',': '،', '?': '؟', '!': '!'
+    };
+
+    // Load word.json for replacements and corrections
+    let wordData = { replacements: {}, corrections: {} };
+    async function loadWordData() {
+      try {
+        const response = await fetch('word.json', { headers: { 'Accept': 'application/json' } });
+        if (!response.ok) throw new Error('فشل تحميل ملف word.json');
+        wordData = await response.json();
+      } catch (error) {
+        console.error('Error loading word.json:', error);
+        document.getElementById('error').textContent = 'فشل تحميل ملف التصحيح. الترجمة قد تكون غير دقيقة.';
+        document.getElementById('error').style.display = 'block';
+      }
+    }
+
+    // Convert Kurdish Latin to Arabic script
+    function convertKurdishToArabicScript(text) {
+      return text
+        .split('')
+        .map(char => kurdishToArabicMap[char.toLowerCase()] || char)
+        .join('');
+    }
+
+    // Apply Arabic-to-Kurdish replacements based on input
+    async function applyWordReplacements(inputText, translatedText) {
+      let result = translatedText;
+      const sortedKeys = Object.keys(wordData.replacements).sort((a, b) => b.length - a.length);
+
+      // Map Arabic input words/phrases to their API translations
+      const wordTranslations = {};
+      for (const arabic of sortedKeys) {
+        if (inputText.toLowerCase().includes(arabic.toLowerCase())) {
+          try {
+            const response = await fetch(`${URL}?key=${API_KEY}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                q: arabic,
+                source: 'ar',
+                target: 'ku',
+                format: 'text'
+              })
+            });
+            if (response.ok) {
+              const data = await response.json();
+              if (data.data && data.data.translations && data.data.translations[0]) {
+                wordTranslations[arabic.toLowerCase()] = data.data.translations[0].translatedText;
+              }
+            }
+          } catch (error) {
+            console.error(`Error translating "${arabic}":`, error);
+          }
+        }
+      }
+
+      // Replace matched API translations with word.json replacement values, anywhere in text
+      for (const arabic of sortedKeys) {
+        const kurdish = wordData.replacements[arabic];
+        const apiTranslation = wordTranslations[arabic.toLowerCase()];
+        if (apiTranslation) {
+          const regex = new RegExp(apiTranslation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+          result = result.replace(regex, kurdish);
+        }
+      }
+
+      return result;
+    }
+
+    // Apply Kurdish-to-Kurdish corrections
+    function applyKurdishCorrections(translatedText) {
+      let result = translatedText;
+      const sortedKeys = Object.keys(wordData.corrections).sort((a, b) => b.length - a.length);
+
+      // Replace incorrect Kurdish words/phrases with corrected versions, anywhere in text
+      for (const incorrect of sortedKeys) {
+        const corrected = wordData.corrections[incorrect];
+        const regex = new RegExp(incorrect.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+        result = result.replace(regex, corrected);
+      }
+
+      return result;
+    }
+
+    // Debounce function to limit API calls
+    function debounce(func, wait) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+      };
+    }
+
+    // Translate text
+    async function translateText(arabicInput) {
+      const kurdishOutput = document.getElementById('kurdishOutput');
+      const errorElement = document.getElementById('error');
+
+      if (!arabicInput) {
+        errorElement.textContent = 'الرجاء إدخال نص بالعربية للترجمة.';
+        errorElement.style.display = 'block';
+        kurdishOutput.value = '';
+        return;
+      }
+
+      try {
+        const response = await fetch(`${URL}?key=${API_KEY}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            q: arabicInput,
+            source: 'ar',
+            target: 'ku',
+            format: 'text'
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('فشل الاتصال بالخادم أو المفتاح غير صالح.');
+        }
+
+        const data = await response.json();
+        if (data.data && data.data.translations && data.data.translations[0]) {
+          let translatedText = data.data.translations[0].translatedText;
+          // Apply replacements based on Arabic input
+          translatedText = await applyWordReplacements(arabicInput, translatedText);
+          // Apply Kurdish corrections
+          translatedText = applyKurdishCorrections(translatedText);
+          // Convert to Arabic script
+          const arabicScriptText = convertKurdishToArabicScript(translatedText);
+          kurdishOutput.value = arabicScriptText;
+          errorElement.style.display = 'none';
+        } else {
+          throw new Error('لم يتم العثور على ترجمة.');
+        }
+      } catch (error) {
+        errorElement.textContent = error.message || 'حدث خطأ أثناء الترجمة.';
+        errorElement.style.display = 'block';
+        kurdishOutput.value = '';
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadWordData();
+      const arabicInput = document.getElementById('arabicInput');
+      arabicInput.addEventListener('input', debounce((e) => {
+        translateText(e.target.value.trim());
+      }, 500));
+    });
+  </script>
+</body>
+</html>
